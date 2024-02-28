@@ -9,6 +9,9 @@ public sealed class ConsumablePackaging
     public long MeasuringId { get; set; }
     public Measuring Measuring { get; set; } = null!;
 
-    public ICollection<ConsumablePackagingPrice> ConsumablePackagingPrices { get; set; } =
+    public ICollection<ConsumablePackagingPrice> Prices { get; set; } =
         new List<ConsumablePackagingPrice>();
+
+    public ICollection<ConsumablePackagingImage> Images { get; set; } =
+        new List<ConsumablePackagingImage>();
 }
