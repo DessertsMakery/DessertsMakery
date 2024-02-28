@@ -7,6 +7,5 @@ public sealed class Consumable : Entity
     public long IngredientNameId { get; set; }
     public IngredientName IngredientName { get; set; } = null!;
 
-    public ICollection<ConsumablePackaging> ConsumablePackagings { get; set; } =
-        new List<ConsumablePackaging>();
+    public ICollection<ConsumablePackaging> ConsumablePackagings { get; set; } = new List<ConsumablePackaging>();
 }
