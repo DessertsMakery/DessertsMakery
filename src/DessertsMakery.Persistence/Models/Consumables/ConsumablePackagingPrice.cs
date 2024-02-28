@@ -6,5 +6,6 @@ public sealed class ConsumablePackagingPrice : Entity
     public long ConsumablePackagingId { get; set; }
     public ConsumablePackaging ConsumablePackaging { get; set; } = null!;
 
-    public ICollection<BoughtConsumable> BoughtConsumables { get; set; } = new List<BoughtConsumable>();
+    public ICollection<BoughtConsumable> BoughtConsumables { get; set; } =
+        new List<BoughtConsumable>();
 }
