@@ -107,6 +107,9 @@
       <Compile Update="Models\Essentials\PackagingComponentConfiguration.cs">
         <DependentUpon>PackagingComponent.cs</DependentUpon>
       </Compile>
+      <Compile Update="Database\DatabaseContext.Tables.cs">
+        <DependentUpon>DatabaseContext.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Desserts;
 
-public sealed class DessertWeightConfiguration : IEntityTypeConfiguration<DessertWeight>
+internal sealed class DessertWeightConfiguration : BaseEntityTypeConfiguration<DessertWeight>
 {
-    public void Configure(EntityTypeBuilder<DessertWeight> builder)
+    protected override void Configure(EntityTypeBuilder<DessertWeight> builder)
     {
         builder.HasMany(x => x.DessertFamilyWeights).WithOne(x => x.DessertWeight);
     }

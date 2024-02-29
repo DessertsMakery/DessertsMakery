@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Recipes;
 
-public sealed class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
+internal sealed class RecipeConfiguration : BaseEntityTypeConfiguration<Recipe>
 {
-    public void Configure(EntityTypeBuilder<Recipe> builder)
+    protected override void Configure(EntityTypeBuilder<Recipe> builder)
     {
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         builder.HasMany(x => x.RecipeDescriptionItems).WithOne(x => x.Recipe);

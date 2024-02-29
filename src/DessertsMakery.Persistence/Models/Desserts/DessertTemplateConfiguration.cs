@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Desserts;
 
-public sealed class DessertTemplateConfiguration : IEntityTypeConfiguration<DessertTemplate>
+internal sealed class DessertTemplateConfiguration : BaseEntityTypeConfiguration<DessertTemplate>
 {
-    public void Configure(EntityTypeBuilder<DessertTemplate> builder)
+    protected override void Configure(EntityTypeBuilder<DessertTemplate> builder)
     {
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         builder.HasMany(x => x.OrderItems).WithOne(x => x.DessertTemplate);

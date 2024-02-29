@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Orders;
 
-public sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
+internal sealed class OrderConfiguration : BaseEntityTypeConfiguration<Order>
 {
-    public void Configure(EntityTypeBuilder<Order> builder)
+    protected override void Configure(EntityTypeBuilder<Order> builder)
     {
         builder.HasMany(x => x.OrderItems).WithOne(x => x.Order);
     }

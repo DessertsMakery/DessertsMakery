@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Orders;
 
-public sealed class CustomPriceConfiguration : IEntityTypeConfiguration<CustomPrice>
+internal sealed class CustomPriceConfiguration : BaseEntityTypeConfiguration<CustomPrice>
 {
-    public void Configure(EntityTypeBuilder<CustomPrice> builder)
+    protected override void Configure(EntityTypeBuilder<CustomPrice> builder)
     {
         builder.Property(x => x.Reason).IsRequired();
     }
