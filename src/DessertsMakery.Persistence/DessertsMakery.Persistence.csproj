@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Ardalis.SmartEnum" Version="7.0.0" />
       <PackageReference Include="CSharpier.MsBuild" Version="0.27.3">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -89,7 +90,7 @@
         <DependentUpon>Measuring.cs</DependentUpon>
       </Compile>
       <Compile Update="Models\Essentials\IngredientConfiguration.cs">
-        <DependentUpon>Component.cs</DependentUpon>
+        <DependentUpon>Ingredient.cs</DependentUpon>
       </Compile>
       <Compile Update="Models\Recipes\RecipeIngredientConfiguration.cs">
         <DependentUpon>RecipeIngredient.cs</DependentUpon>
@@ -106,6 +107,10 @@
       <Compile Update="Models\Essentials\PackagingComponentConfiguration.cs">
         <DependentUpon>PackagingComponent.cs</DependentUpon>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DessertsMakery.Contracts\DessertsMakery.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

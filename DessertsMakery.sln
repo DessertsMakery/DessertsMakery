@@ -6,6 +6,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C2C27E50
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DessertsMakery.Persistence", "src\DessertsMakery.Persistence\DessertsMakery.Persistence.csproj", "{809E9EC5-E8DE-40A5-9324-74F05CA7E042}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DessertsMakery.Contracts", "src\DessertsMakery.Contracts\DessertsMakery.Contracts.csproj", "{6F430590-A8E5-4637-B84B-0E75DBF3F1D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,8 +18,13 @@ Global
 		{809E9EC5-E8DE-40A5-9324-74F05CA7E042}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{809E9EC5-E8DE-40A5-9324-74F05CA7E042}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{809E9EC5-E8DE-40A5-9324-74F05CA7E042}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F430590-A8E5-4637-B84B-0E75DBF3F1D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F430590-A8E5-4637-B84B-0E75DBF3F1D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F430590-A8E5-4637-B84B-0E75DBF3F1D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F430590-A8E5-4637-B84B-0E75DBF3F1D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{809E9EC5-E8DE-40A5-9324-74F05CA7E042} = {498427A2-28B0-42C9-B5FF-F33D995F0F21}
+		{6F430590-A8E5-4637-B84B-0E75DBF3F1D0} = {498427A2-28B0-42C9-B5FF-F33D995F0F21}
 	EndGlobalSection
 EndGlobal
