@@ -7,6 +7,8 @@ public sealed class OrderItemDetailsConfiguration : IEntityTypeConfiguration<Ord
 {
     public void Configure(EntityTypeBuilder<OrderItemDetails> builder)
     {
-        throw new NotImplementedException();
+        builder.HasOne(x => x.CustomPrice).WithOne(x => x.OrderItemDetails);
+        builder.HasOne(x => x.CustomDiscount).WithOne(x => x.OrderItemDetails);
+        builder.HasMany(x => x.OrderItemDetailsImages).WithOne(x => x.OrderItemDetails);
     }
 }

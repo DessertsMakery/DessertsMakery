@@ -15,12 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Models\IngredientNameConfiguration.cs">
-        <DependentUpon>IngredientName.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Models\MeasuringConfiguration.cs">
-        <DependentUpon>Measuring.cs</DependentUpon>
-      </Compile>
       <Compile Update="Models\Recipes\RecipeConfiguration.cs">
         <DependentUpon>Recipe.cs</DependentUpon>
       </Compile>
@@ -38,9 +32,6 @@
       </Compile>
       <Compile Update="Models\Purchases\PurchaseItemConfiguration.cs">
         <DependentUpon>PurchaseItem.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Models\Orders\CakePricingConfiguration.cs">
-        <DependentUpon>CakePricing.cs</DependentUpon>
       </Compile>
       <Compile Update="Models\Orders\CustomDiscountConfiguration.cs">
         <DependentUpon>CustomDiscount.cs</DependentUpon>
@@ -75,20 +66,23 @@
       <Compile Update="Models\Consumables\ConsumablePackagingPriceConfiguration.cs">
         <DependentUpon>ConsumablePackagingPrice.cs</DependentUpon>
       </Compile>
-      <Compile Update="Models\Cakes\CakeFamilyConfiguration.cs">
-        <DependentUpon>CakeFamily.cs</DependentUpon>
+      <Compile Update="Models\Desserts\DessertFamilyConfiguration.cs">
+        <DependentUpon>DessertFamily.cs</DependentUpon>
       </Compile>
-      <Compile Update="Models\Cakes\CakeFamilyWeightConfiguration.cs">
-        <DependentUpon>CakeFamilyWeight.cs</DependentUpon>
+      <Compile Update="Models\Desserts\DessertFamilyWeightConfiguration.cs">
+        <DependentUpon>DessertFamilyWeight.cs</DependentUpon>
       </Compile>
-      <Compile Update="Models\Cakes\CakeTemplateConfiguration.cs">
-        <DependentUpon>CakeTemplate.cs</DependentUpon>
+      <Compile Update="Models\Desserts\DessertTemplateConfiguration.cs">
+        <DependentUpon>DessertTemplate.cs</DependentUpon>
       </Compile>
-      <Compile Update="Models\Cakes\CakeTemplateRecipeConfiguration.cs">
-        <DependentUpon>CakeTemplateRecipe.cs</DependentUpon>
+      <Compile Update="Models\Desserts\DessertTemplateRecipeConfiguration.cs">
+        <DependentUpon>DessertTemplateRecipe.cs</DependentUpon>
       </Compile>
-      <Compile Update="Models\Cakes\CakeWeightConfiguration.cs">
-        <DependentUpon>CakeWeight.cs</DependentUpon>
+      <Compile Update="Models\Desserts\DessertWeightConfiguration.cs">
+        <DependentUpon>DessertWeight.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Desserts\DessertPricingConfiguration.cs">
+        <DependentUpon>DessertPricing.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 

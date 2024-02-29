@@ -1,4 +1,6 @@
-﻿namespace DessertsMakery.Persistence.Models.Consumables;
+﻿using DessertsMakery.Persistence.Models.Essentials;
+
+namespace DessertsMakery.Persistence.Models.Consumables;
 
 public sealed class ConsumablePackaging : Entity
 {
@@ -10,6 +12,5 @@ public sealed class ConsumablePackaging : Entity
     public Measuring Measuring { get; set; } = null!;
 
     public ICollection<ConsumablePackagingPrice> Prices { get; set; } = new List<ConsumablePackagingPrice>();
-
     public ICollection<ConsumablePackagingImage> Images { get; set; } = new List<ConsumablePackagingImage>();
 }

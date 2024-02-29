@@ -3,11 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Consumables;
 
-public sealed class ConsumablePackagingImageConfiguration
-    : IEntityTypeConfiguration<ConsumablePackagingImageConfiguration>
+public sealed class ConsumablePackagingImageConfiguration : IEntityTypeConfiguration<ConsumablePackagingImage>
 {
-    public void Configure(EntityTypeBuilder<ConsumablePackagingImageConfiguration> builder)
-    {
-        throw new NotImplementedException();
-    }
+    public void Configure(EntityTypeBuilder<ConsumablePackagingImage> builder) { }
 }

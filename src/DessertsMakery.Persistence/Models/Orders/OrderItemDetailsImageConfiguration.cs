@@ -5,8 +5,5 @@ namespace DessertsMakery.Persistence.Models.Orders;
 
 public sealed class OrderItemDetailsImageConfiguration : IEntityTypeConfiguration<OrderItemDetailsImage>
 {
-    public void Configure(EntityTypeBuilder<OrderItemDetailsImage> builder)
-    {
-        throw new NotImplementedException();
-    }
+    public void Configure(EntityTypeBuilder<OrderItemDetailsImage> builder) { }
 }

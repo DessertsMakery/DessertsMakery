@@ -7,6 +7,6 @@ public sealed class ConsumablePackagingPriceConfiguration : IEntityTypeConfigura
 {
     public void Configure(EntityTypeBuilder<ConsumablePackagingPrice> builder)
     {
-        throw new NotImplementedException();
+        builder.HasMany(x => x.PurchaseItems).WithOne(x => x.ConsumablePackagingPrice);
     }
 }

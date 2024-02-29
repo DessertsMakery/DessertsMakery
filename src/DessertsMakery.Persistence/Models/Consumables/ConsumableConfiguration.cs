@@ -7,6 +7,7 @@ public sealed class ConsumableConfiguration : IEntityTypeConfiguration<Consumabl
 {
     public void Configure(EntityTypeBuilder<Consumable> builder)
     {
-        throw new NotImplementedException();
+        builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
+        builder.HasMany(x => x.ConsumablePackagings).WithOne(x => x.Consumable);
     }
 }

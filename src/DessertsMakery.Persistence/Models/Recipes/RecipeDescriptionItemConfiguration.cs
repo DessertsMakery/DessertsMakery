@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Recipes;
 
-public sealed class RecipeDescriptionItemConfiguration : IEntityTypeConfiguration<RecipeDescriptionItemConfiguration>
+public sealed class RecipeDescriptionItemConfiguration : IEntityTypeConfiguration<RecipeDescriptionItem>
 {
-    public void Configure(EntityTypeBuilder<RecipeDescriptionItemConfiguration> builder)
+    public void Configure(EntityTypeBuilder<RecipeDescriptionItem> builder)
     {
-        throw new NotImplementedException();
+        builder.HasIndex(x => new { x.RecipeId, x.Order }).IsUnique();
     }
 }

@@ -3,10 +3,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Recipes;
 
-public sealed class RecipeConfiguration : IEntityTypeConfiguration<RecipeConfiguration>
+public sealed class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
 {
-    public void Configure(EntityTypeBuilder<RecipeConfiguration> builder)
+    public void Configure(EntityTypeBuilder<Recipe> builder)
     {
-        throw new NotImplementedException();
+        builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
+        builder.HasMany(x => x.RecipeDescriptionItems).WithOne(x => x.Recipe);
+        builder.HasMany(x => x.RecipePartIngredients).WithOne(x => x.Recipe);
+        builder.HasMany(x => x.DessertTemplateRecipes).WithOne(x => x.Recipe);
     }
 }

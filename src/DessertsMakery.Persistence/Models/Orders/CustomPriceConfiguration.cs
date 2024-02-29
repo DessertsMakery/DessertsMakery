@@ -7,6 +7,6 @@ public sealed class CustomPriceConfiguration : IEntityTypeConfiguration<CustomPr
 {
     public void Configure(EntityTypeBuilder<CustomPrice> builder)
     {
-        throw new NotImplementedException();
+        builder.Property(x => x.Reason).IsRequired();
     }
 }

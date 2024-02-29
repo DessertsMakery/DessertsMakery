@@ -7,6 +7,7 @@ public sealed class RecipeDescriptionItemTypeConfiguration : IEntityTypeConfigur
 {
     public void Configure(EntityTypeBuilder<RecipeDescriptionItemType> builder)
     {
-        throw new NotImplementedException();
+        builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
+        builder.HasMany(x => x.RecipeDescriptionItems).WithOne(x => x.RecipeDescriptionItemType);
     }
 }

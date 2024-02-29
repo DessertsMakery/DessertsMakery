@@ -5,8 +5,5 @@ namespace DessertsMakery.Persistence.Models.Purchases;
 
 public sealed class PurchaseItemConfiguration : IEntityTypeConfiguration<PurchaseItem>
 {
-    public void Configure(EntityTypeBuilder<PurchaseItem> builder)
-    {
-        throw new NotImplementedException();
-    }
+    public void Configure(EntityTypeBuilder<PurchaseItem> builder) { }
 }

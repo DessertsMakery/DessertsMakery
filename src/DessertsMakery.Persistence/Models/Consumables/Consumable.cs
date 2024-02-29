@@ -1,11 +1,13 @@
-﻿namespace DessertsMakery.Persistence.Models.Consumables;
+﻿using DessertsMakery.Persistence.Models.Essentials;
+
+namespace DessertsMakery.Persistence.Models.Consumables;
 
 public sealed class Consumable : Entity
 {
     public string Name { get; set; } = null!;
     public string? Firm { get; set; }
-    public long IngredientNameId { get; set; }
-    public IngredientName IngredientName { get; set; } = null!;
+    public long ComponentId { get; set; }
+    public Component Component { get; set; } = null!;
 
     public ICollection<ConsumablePackaging> ConsumablePackagings { get; set; } = new List<ConsumablePackaging>();
 }
