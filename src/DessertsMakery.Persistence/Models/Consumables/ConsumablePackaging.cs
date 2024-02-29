@@ -1,6 +1,6 @@
 ﻿namespace DessertsMakery.Persistence.Models.Consumables;
 
-public sealed class ConsumablePackaging
+public sealed class ConsumablePackaging : Entity
 {
     public long ConsumableId { get; set; }
     public Consumable Consumable { get; set; } = null!;

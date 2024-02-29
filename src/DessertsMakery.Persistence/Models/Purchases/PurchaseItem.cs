@@ -1,4 +1,6 @@
-﻿namespace DessertsMakery.Persistence.Models.Consumables;
+﻿using DessertsMakery.Persistence.Models.Consumables;
+
+namespace DessertsMakery.Persistence.Models.Purchases;
 
 public sealed class PurchaseItem : Entity
 {

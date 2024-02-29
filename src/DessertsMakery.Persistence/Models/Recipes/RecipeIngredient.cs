@@ -1,9 +1,9 @@
 ﻿namespace DessertsMakery.Persistence.Models.Recipes;
 
-public sealed class RecipePartIngredient : Entity
+public sealed class RecipeIngredient : Entity
 {
     public long RecipePartId { get; set; }
-    public RecipePart RecipePart { get; set; } = null!;
+    public Recipe Recipe { get; set; } = null!;
 
     public long IngredientNameId { get; set; }
     public IngredientName IngredientName { get; set; } = null!;
