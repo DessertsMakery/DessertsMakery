@@ -24,8 +24,8 @@
       <Compile Update="Models\Recipes\RecipeDescriptionItemTypeConfiguration.cs">
         <DependentUpon>RecipeDescriptionItemType.cs</DependentUpon>
       </Compile>
-      <Compile Update="Models\Recipes\RecipeIngredientConfiguration.cs">
-        <DependentUpon>RecipeIngredient.cs</DependentUpon>
+      <Compile Update="Models\Recipes\RecipeComponentConfiguration.cs">
+        <DependentUpon>RecipeComponent.cs</DependentUpon>
       </Compile>
       <Compile Update="Models\Purchases\PurchaseConfiguration.cs">
         <DependentUpon>Purchase.cs</DependentUpon>
@@ -83,6 +83,27 @@
       </Compile>
       <Compile Update="Models\Desserts\DessertPricingConfiguration.cs">
         <DependentUpon>DessertPricing.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Essentials\MeasuringConfiguration.cs">
+        <DependentUpon>Measuring.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Essentials\IngredientConfiguration.cs">
+        <DependentUpon>Component.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Recipes\RecipeIngredientConfiguration.cs">
+        <DependentUpon>RecipeIngredient.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Orders\OrderItemDetailPackagingComponentConfiguration.cs">
+        <DependentUpon>OrderItemDetailPackagingComponent.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Orders\OrderItemDetailsAdditionConfiguration.cs">
+        <DependentUpon>OrderItemDetailsAddition.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Essentials\AdditionConfiguration.cs">
+        <DependentUpon>Addition.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Essentials\PackagingComponentConfiguration.cs">
+        <DependentUpon>PackagingComponent.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 
