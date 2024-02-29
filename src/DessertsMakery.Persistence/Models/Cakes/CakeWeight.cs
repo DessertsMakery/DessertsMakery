@@ -1,4 +1,6 @@
-﻿namespace DessertsMakery.Persistence.Models.Cakes;
+﻿using DessertsMakery.Persistence.Configurations;
+
+namespace DessertsMakery.Persistence.Models.Cakes;
 
 public sealed class CakeWeight : Entity
 {
