@@ -11,6 +11,79 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.16" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Models\Recipes\RecipeConfiguration.cs">
+        <DependentUpon>Recipe.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Recipes\RecipeDescriptionItemConfiguration.cs">
+        <DependentUpon>RecipeDescriptionItem.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Recipes\RecipeDescriptionItemTypeConfiguration.cs">
+        <DependentUpon>RecipeDescriptionItemType.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Recipes\RecipeIngredientConfiguration.cs">
+        <DependentUpon>RecipeIngredient.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Purchases\PurchaseConfiguration.cs">
+        <DependentUpon>Purchase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Purchases\PurchaseItemConfiguration.cs">
+        <DependentUpon>PurchaseItem.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Orders\CustomDiscountConfiguration.cs">
+        <DependentUpon>CustomDiscount.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Orders\CustomPriceConfiguration.cs">
+        <DependentUpon>CustomPrice.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Orders\OrderConfiguration.cs">
+        <DependentUpon>Order.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Orders\OrderItemConfiguration.cs">
+        <DependentUpon>OrderItem.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Orders\OrderItemDetailsConfiguration.cs">
+        <DependentUpon>OrderItemDetails.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Orders\OrderItemDetailsImageConfiguration.cs">
+        <DependentUpon>OrderItemDetailsImage.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Customers\CustomerConfiguration.cs">
+        <DependentUpon>Customer.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Consumables\ConsumableConfiguration.cs">
+        <DependentUpon>Consumable.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Consumables\ConsumablePackagingConfiguration.cs">
+        <DependentUpon>ConsumablePackaging.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Consumables\ConsumablePackagingImageConfiguration.cs">
+        <DependentUpon>ConsumablePackagingImage.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Consumables\ConsumablePackagingPriceConfiguration.cs">
+        <DependentUpon>ConsumablePackagingPrice.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Desserts\DessertFamilyConfiguration.cs">
+        <DependentUpon>DessertFamily.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Desserts\DessertFamilyWeightConfiguration.cs">
+        <DependentUpon>DessertFamilyWeight.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Desserts\DessertTemplateConfiguration.cs">
+        <DependentUpon>DessertTemplate.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Desserts\DessertTemplateRecipeConfiguration.cs">
+        <DependentUpon>DessertTemplateRecipe.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Desserts\DessertWeightConfiguration.cs">
+        <DependentUpon>DessertWeight.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Desserts\DessertPricingConfiguration.cs">
+        <DependentUpon>DessertPricing.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>
