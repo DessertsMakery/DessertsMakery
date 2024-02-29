@@ -1,11 +1,12 @@
-﻿namespace DessertsMakery.Persistence.Models.Recipes;
+﻿using DessertsMakery.Persistence.Models.Cakes;
+
+namespace DessertsMakery.Persistence.Models.Recipes;
 
 public sealed class Recipe : Entity
 {
     public string Name { get; set; } = null!;
 
-    public long? RecipeDescriptionId { get; set; }
-    public RecipeDescription? RecipeDescription { get; set; }
-
-    public ICollection<RecipePart> RecipeParts { get; set; } = new List<RecipePart>();
+    public ICollection<RecipeDescriptionItem> RecipeDescriptionItems { get; set; } = new List<RecipeDescriptionItem>();
+    public ICollection<RecipeIngredient> RecipePartIngredients { get; set; } = new List<RecipeIngredient>();
+    public ICollection<CakeTemplateRecipe> CakeTemplateRecipes { get; set; } = new List<CakeTemplateRecipe>();
 }

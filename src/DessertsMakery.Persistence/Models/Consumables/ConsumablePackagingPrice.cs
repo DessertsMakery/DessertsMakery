@@ -1,4 +1,6 @@
-﻿namespace DessertsMakery.Persistence.Models.Consumables;
+﻿using DessertsMakery.Persistence.Models.Purchases;
+
+namespace DessertsMakery.Persistence.Models.Consumables;
 
 public sealed class ConsumablePackagingPrice : Entity
 {
