@@ -1,8 +1,7 @@
-﻿using DessertsMakery.Persistence.Models.Recipes;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DessertsMakery.Persistence.Configurations.Recipes;
+namespace DessertsMakery.Persistence.Models.Recipes;
 
 public sealed class RecipeIngredientConfiguration : IEntityTypeConfiguration<RecipeIngredient>
 {

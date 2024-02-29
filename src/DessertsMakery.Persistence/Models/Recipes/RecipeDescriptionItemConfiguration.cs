@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DessertsMakery.Persistence.Configurations.Recipes;
+namespace DessertsMakery.Persistence.Models.Recipes;
 
 public sealed class RecipeDescriptionItemConfiguration : IEntityTypeConfiguration<RecipeDescriptionItemConfiguration>
 {

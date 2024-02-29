@@ -1,8 +1,7 @@
-﻿using DessertsMakery.Persistence.Models.Consumables;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DessertsMakery.Persistence.Configurations.Consumables;
+namespace DessertsMakery.Persistence.Models.Consumables;
 
 public sealed class ConsumableConfiguration : IEntityTypeConfiguration<Consumable>
 {

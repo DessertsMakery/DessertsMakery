@@ -1,8 +1,7 @@
-﻿using DessertsMakery.Persistence.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DessertsMakery.Persistence.Configurations;
+namespace DessertsMakery.Persistence.Models;
 
 internal sealed class IngredientNameConfiguration : IEntityTypeConfiguration<IngredientName>
 {

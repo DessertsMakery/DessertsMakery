@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DessertsMakery.Persistence.Configurations.Purchases;
+namespace DessertsMakery.Persistence.Models.Purchases;
 
 public sealed class PurchaseConfiguration : IEntityTypeConfiguration<PurchaseConfiguration>
 {

@@ -1,8 +1,7 @@
-﻿using DessertsMakery.Persistence.Models.Customers;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DessertsMakery.Persistence.Configurations.Customers;
+namespace DessertsMakery.Persistence.Models.Customers;
 
 public sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {

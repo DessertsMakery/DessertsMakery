@@ -1,8 +1,7 @@
-﻿using DessertsMakery.Persistence.Models.Purchases;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DessertsMakery.Persistence.Configurations.Purchases;
+namespace DessertsMakery.Persistence.Models.Purchases;
 
 public sealed class PurchaseItemConfiguration : IEntityTypeConfiguration<PurchaseItem>
 {

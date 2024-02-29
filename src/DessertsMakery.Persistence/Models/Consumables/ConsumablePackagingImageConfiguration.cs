@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DessertsMakery.Persistence.Configurations.Consumables;
+namespace DessertsMakery.Persistence.Models.Consumables;
 
 public sealed class ConsumablePackagingImageConfiguration
     : IEntityTypeConfiguration<ConsumablePackagingImageConfiguration>

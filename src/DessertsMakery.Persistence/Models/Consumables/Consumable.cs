@@ -1,6 +1,4 @@
-﻿using DessertsMakery.Persistence.Configurations;
-
-namespace DessertsMakery.Persistence.Models.Consumables;
+﻿namespace DessertsMakery.Persistence.Models.Consumables;
 
 public sealed class Consumable : Entity
 {

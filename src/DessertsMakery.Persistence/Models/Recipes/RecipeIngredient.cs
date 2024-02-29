@@ -1,6 +1,4 @@
-﻿using DessertsMakery.Persistence.Configurations;
-
-namespace DessertsMakery.Persistence.Models.Recipes;
+﻿namespace DessertsMakery.Persistence.Models.Recipes;
 
 public sealed class RecipeIngredient : Entity
 {
