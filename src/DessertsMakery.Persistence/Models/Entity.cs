@@ -2,9 +2,9 @@
 
 public abstract class Entity
 {
-    public long InternalId { get; set; }
-    public Guid ExternalId { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public long InternalId { get; init; }
+    public Guid ExternalId { get; init; }
+    public DateTime CreatedAt { get; init; }
     public DateTime ModifiedAt { get; set; }
     public bool IsDeleted { get; set; }
 }

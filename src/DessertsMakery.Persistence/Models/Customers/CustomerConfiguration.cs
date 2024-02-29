@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Customers;
 
-public sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
+internal sealed class CustomerConfiguration : BaseEntityTypeConfiguration<Customer>
 {
-    public void Configure(EntityTypeBuilder<Customer> builder)
+    protected override void Configure(EntityTypeBuilder<Customer> builder)
     {
         builder.Property(x => x.Username).HasMaxLength(100).IsRequired();
         builder.Property(x => x.Name).HasMaxLength(200);

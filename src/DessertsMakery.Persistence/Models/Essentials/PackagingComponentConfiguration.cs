@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Essentials;
 
-public sealed class PackagingComponentConfiguration : IEntityTypeConfiguration<PackagingComponent>
+internal sealed class PackagingComponentConfiguration : BaseEntityTypeConfiguration<PackagingComponent>
 {
-    public void Configure(EntityTypeBuilder<PackagingComponent> builder)
+    protected override void Configure(EntityTypeBuilder<PackagingComponent> builder)
     {
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         builder.HasMany(x => x.Consumables);

@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DessertsMakery.Persistence.Models.Recipes;
 
-public sealed class RecipeDescriptionItemConfiguration : IEntityTypeConfiguration<RecipeDescriptionItem>
+internal sealed class RecipeDescriptionItemConfiguration : BaseEntityTypeConfiguration<RecipeDescriptionItem>
 {
-    public void Configure(EntityTypeBuilder<RecipeDescriptionItem> builder)
+    protected override void Configure(EntityTypeBuilder<RecipeDescriptionItem> builder)
     {
         builder.HasIndex(x => new { x.RecipeId, x.Order }).IsUnique();
     }
