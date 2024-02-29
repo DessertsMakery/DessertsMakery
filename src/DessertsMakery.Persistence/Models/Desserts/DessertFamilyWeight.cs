@@ -9,4 +9,5 @@ public sealed class DessertFamilyWeight : Entity
     public DessertWeight DessertWeight { get; set; } = null!;
 
     public ICollection<DessertPricing> DessertPricing { get; set; } = new List<DessertPricing>();
+    public ICollection<DessertTemplate> DessertTemplates { get; set; } = new List<DessertTemplate>();
 }

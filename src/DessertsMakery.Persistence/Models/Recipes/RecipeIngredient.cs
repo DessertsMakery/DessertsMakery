@@ -4,11 +4,11 @@ namespace DessertsMakery.Persistence.Models.Recipes;
 
 public sealed class RecipeIngredient : Entity
 {
-    public long RecipePartId { get; set; }
+    public long RecipeId { get; set; }
     public Recipe Recipe { get; set; } = null!;
 
-    public long ComponentId { get; set; }
-    public Component Component { get; set; } = null!;
+    public long IngredientId { get; set; }
+    public Ingredient Ingredient { get; set; } = null!;
 
     public decimal MeasuringValue { get; set; }
     public long MeasuringId { get; set; }

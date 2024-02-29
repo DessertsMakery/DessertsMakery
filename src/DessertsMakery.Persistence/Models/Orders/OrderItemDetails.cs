@@ -13,5 +13,8 @@ public sealed class OrderItemDetails : Entity
     public long? CustomDiscountId { get; set; }
     public CustomDiscount? CustomDiscount { get; set; }
 
+    public ICollection<OrderItemDetailPackagingComponent> PackagingComponents { get; set; } =
+        new List<OrderItemDetailPackagingComponent>();
+    public ICollection<OrderItemDetailsAddition> Additions { get; set; } = new List<OrderItemDetailsAddition>();
     public ICollection<OrderItemDetailsImage> OrderItemDetailsImages { get; set; } = new List<OrderItemDetailsImage>();
 }

@@ -9,7 +9,7 @@ public sealed class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
     {
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         builder.HasMany(x => x.RecipeDescriptionItems).WithOne(x => x.Recipe);
-        builder.HasMany(x => x.RecipePartIngredients).WithOne(x => x.Recipe);
+        builder.HasMany(x => x.RecipeIngredients).WithOne(x => x.Recipe);
         builder.HasMany(x => x.DessertTemplateRecipes).WithOne(x => x.Recipe);
     }
 }

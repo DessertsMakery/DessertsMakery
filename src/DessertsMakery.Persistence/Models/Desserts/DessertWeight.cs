@@ -8,6 +8,5 @@ public sealed class DessertWeight : Entity
     public long MeasuringId { get; set; }
     public Measuring Measuring { get; set; } = null!;
 
-    public ICollection<DessertTemplate> DessertTemplates { get; set; } = new List<DessertTemplate>();
     public ICollection<DessertFamilyWeight> DessertFamilyWeights { get; set; } = new List<DessertFamilyWeight>();
 }

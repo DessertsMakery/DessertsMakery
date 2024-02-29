@@ -9,7 +9,7 @@ public sealed class MeasuringConfiguration : IEntityTypeConfiguration<Measuring>
     {
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         builder.HasMany(x => x.ConsumablePackagings).WithOne(x => x.Measuring);
-        builder.HasMany(x => x.RecipePartIngredients).WithOne(x => x.Measuring);
+        builder.HasMany(x => x.RecipeIngredients).WithOne(x => x.Measuring);
         builder.HasMany(x => x.DessertWeights).WithOne(x => x.Measuring);
     }
 }

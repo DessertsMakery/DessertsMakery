@@ -7,7 +7,6 @@ public sealed class DessertWeightConfiguration : IEntityTypeConfiguration<Desser
 {
     public void Configure(EntityTypeBuilder<DessertWeight> builder)
     {
-        builder.HasMany(x => x.DessertTemplates).WithOne(x => x.DessertWeight);
         builder.HasMany(x => x.DessertFamilyWeights).WithOne(x => x.DessertWeight);
     }
 }

@@ -9,6 +9,6 @@ public sealed class Measuring : Entity
     public string Name { get; set; } = null!;
 
     public ICollection<ConsumablePackaging> ConsumablePackagings { get; set; } = new List<ConsumablePackaging>();
-    public ICollection<RecipeIngredient> RecipePartIngredients { get; set; } = new List<RecipeIngredient>();
+    public ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
     public ICollection<DessertWeight> DessertWeights { get; set; } = new List<DessertWeight>();
 }
