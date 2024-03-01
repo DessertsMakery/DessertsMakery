@@ -1,4 +1,6 @@
 ﻿using DessertsMakery.Persistence.Models.Consumables;
+using DessertsMakery.Persistence.Models.Orders;
+using DessertsMakery.Persistence.Models.Recipes;
 
 namespace DessertsMakery.Persistence.Models.Essentials;
 
@@ -7,4 +9,9 @@ public abstract class Component : Entity
     public string Name { get; set; } = null!;
 
     public ICollection<Consumable> Consumables { get; set; } = new List<Consumable>();
+    public ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
+    public ICollection<OrderItemDetailsAddition> OrderItemDetailsAdditions { get; set; } =
+        new List<OrderItemDetailsAddition>();
+    public ICollection<OrderItemDetailPackagingComponent> OrderItemDetailPackagingComponents { get; set; } =
+        new List<OrderItemDetailPackagingComponent>();
 }

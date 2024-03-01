@@ -29,6 +29,7 @@ internal sealed partial class DatabaseContext : IDatabase
 
     public DbSet<Addition> Additions { get; set; }
     public DbSet<Component> Components { get; set; }
+    public DbSet<Ingredient> Ingredients { get; set; }
     public DbSet<Measuring> Measurings { get; set; }
     public DbSet<PackagingComponent> PackagingComponents { get; set; }
 

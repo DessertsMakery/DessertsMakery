@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DessertsMakery.Persistence.Database.Interfaces;
 
-public interface IEssentialTables
+public interface IEssentialTables : ITables
 {
     DbSet<Addition> Additions { get; set; }
     DbSet<Component> Components { get; set; }
