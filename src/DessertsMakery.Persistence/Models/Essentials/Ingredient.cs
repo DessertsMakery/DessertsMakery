@@ -1,3 +1,8 @@
-﻿namespace DessertsMakery.Persistence.Models.Essentials;
+﻿using DessertsMakery.Persistence.Models.Recipes;
 
-public sealed class Ingredient : Component { }
+namespace DessertsMakery.Persistence.Models.Essentials;
+
+public sealed class Ingredient : Component
+{
+    public ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
+}

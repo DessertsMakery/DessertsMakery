@@ -1,3 +1,9 @@
-﻿namespace DessertsMakery.Persistence.Models.Essentials;
+﻿using DessertsMakery.Persistence.Models.Orders;
 
-public sealed class Addition : Component { }
+namespace DessertsMakery.Persistence.Models.Essentials;
+
+public sealed class Addition : Component
+{
+    public ICollection<OrderItemDetailsAddition> OrderItemDetailsAdditions { get; set; } =
+        new List<OrderItemDetailsAddition>();
+}

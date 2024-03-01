@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DessertsMakery.Persistence.Database.Interfaces;
 
-public interface IDessertTables : ITables
+public interface IDessertTables
 {
     DbSet<DessertFamily> DessertFamilies { get; set; }
     DbSet<DessertFamilyWeight> DessertFamilyWeights { get; set; }

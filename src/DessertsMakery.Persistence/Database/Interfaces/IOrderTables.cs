@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DessertsMakery.Persistence.Database.Interfaces;
 
-public interface IOrderTables : ITables
+public interface IOrderTables
 {
     DbSet<CustomDiscount> CustomDiscounts { get; set; }
     DbSet<CustomPrice> CustomPrices { get; set; }

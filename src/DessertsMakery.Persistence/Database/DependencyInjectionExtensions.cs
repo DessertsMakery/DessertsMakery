@@ -1,28 +1,12 @@
-﻿using System.Reflection;
-using DessertsMakery.Persistence.Database.Interfaces;
-using DessertsMakery.Persistence.Database.Seeding;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace DessertsMakery.Persistence.Database;
 
-internal static class DependencyInjectionExtensions
+public static class DependencyInjectionExtensions
 {
-    private static readonly Assembly ThisAssembly = typeof(DependencyInjectionExtensions).Assembly;
-
-    internal static IServiceCollection AddDatabaseContext(
-        this IServiceCollection services,
-        Func<IServiceProvider, string> pathResolver
-    ) => services.AddContextWith(pathResolver).AddSeeding(ThisAssembly).AddDatabaseInterfaces<DatabaseContext>();
-
-    private static IServiceCollection AddContextWith(
-        this IServiceCollection services,
-        Func<IServiceProvider, string> pathResolver
-    )
+    public static IServiceCollection AddContext(this IServiceCollection services, string folder)
     {
-        return services.AddDbContext<DatabaseContext>(WithCustomConnectionString);
-
-        void WithCustomConnectionString(IServiceProvider provider, DbContextOptionsBuilder builder) =>
-            builder.UseSqlite($"Data Source={pathResolver(provider)}");
+        var connection = $"Data Source={Path.Join(folder, "desserts_makery.db")}";
+        return services.AddSqlite<DatabaseContext>(connection);
     }
 }

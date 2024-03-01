@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DessertsMakery.Persistence.Database.Interfaces;
 
-public interface IConsumableTables : ITables
+public interface IConsumableTables
 {
     DbSet<Consumable> Consumables { get; set; }
     DbSet<ConsumablePackaging> ConsumablePackagings { get; set; }

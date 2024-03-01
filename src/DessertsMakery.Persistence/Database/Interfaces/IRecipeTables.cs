@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DessertsMakery.Persistence.Database.Interfaces;
 
-public interface IRecipeTables : ITables
+public interface IRecipeTables
 {
     DbSet<Recipe> Recipes { get; set; }
     DbSet<RecipeDescriptionItem> RecipeDescriptionItems { get; set; }
