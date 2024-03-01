@@ -20,6 +20,8 @@ internal static class DependencyInjectionExtensions
             services.AddDatabaseInterface<TContext>(tableInterface);
         }
 
+        services.AddDatabaseInterface<TContext>(typeof(IUnitOfWork));
+
         return services;
     }
 

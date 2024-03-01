@@ -14,7 +14,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DessertsMakery.Telegram.Wor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DessertsMakery.Common", "src\DessertsMakery.Common\DessertsMakery.Common.csproj", "{896EDEA1-0C00-4A63-82EB-CEEADCDEB50F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DessertsMakery.Consumables.Application", "src\DessertsMakery.Consumables.Application\DessertsMakery.Consumables.Application.csproj", "{593CA87D-59E5-4858-84A4-0909004184A6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{F6D36DE8-8B91-42D5-BF96-FC0A907E9383}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DessertsMakery.Essentials.Application", "src\Applications\DessertsMakery.Essentials.Application\DessertsMakery.Essentials.Application.csproj", "{4E97A0A4-73A8-4C9D-BDBC-F123C8A7E2E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DessertsMakery.Consumables.Application", "src\Applications\DessertsMakery.Consumables.Application\DessertsMakery.Consumables.Application.csproj", "{1EAB8230-1B23-4932-9B8A-55C54D4896DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,10 +42,14 @@ Global
 		{896EDEA1-0C00-4A63-82EB-CEEADCDEB50F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{896EDEA1-0C00-4A63-82EB-CEEADCDEB50F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{896EDEA1-0C00-4A63-82EB-CEEADCDEB50F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{593CA87D-59E5-4858-84A4-0909004184A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{593CA87D-59E5-4858-84A4-0909004184A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{593CA87D-59E5-4858-84A4-0909004184A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{593CA87D-59E5-4858-84A4-0909004184A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E97A0A4-73A8-4C9D-BDBC-F123C8A7E2E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E97A0A4-73A8-4C9D-BDBC-F123C8A7E2E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E97A0A4-73A8-4C9D-BDBC-F123C8A7E2E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E97A0A4-73A8-4C9D-BDBC-F123C8A7E2E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EAB8230-1B23-4932-9B8A-55C54D4896DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EAB8230-1B23-4932-9B8A-55C54D4896DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EAB8230-1B23-4932-9B8A-55C54D4896DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EAB8230-1B23-4932-9B8A-55C54D4896DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{809E9EC5-E8DE-40A5-9324-74F05CA7E042} = {498427A2-28B0-42C9-B5FF-F33D995F0F21}
@@ -49,6 +57,8 @@ Global
 		{76AAC6DC-67FC-4D4D-B243-ED2192EE68CE} = {498427A2-28B0-42C9-B5FF-F33D995F0F21}
 		{E18AA685-8BD4-4950-AA20-EB8DEA7BAE2C} = {76AAC6DC-67FC-4D4D-B243-ED2192EE68CE}
 		{896EDEA1-0C00-4A63-82EB-CEEADCDEB50F} = {498427A2-28B0-42C9-B5FF-F33D995F0F21}
-		{593CA87D-59E5-4858-84A4-0909004184A6} = {498427A2-28B0-42C9-B5FF-F33D995F0F21}
+		{F6D36DE8-8B91-42D5-BF96-FC0A907E9383} = {498427A2-28B0-42C9-B5FF-F33D995F0F21}
+		{4E97A0A4-73A8-4C9D-BDBC-F123C8A7E2E2} = {F6D36DE8-8B91-42D5-BF96-FC0A907E9383}
+		{1EAB8230-1B23-4932-9B8A-55C54D4896DB} = {F6D36DE8-8B91-42D5-BF96-FC0A907E9383}
 	EndGlobalSection
 EndGlobal
