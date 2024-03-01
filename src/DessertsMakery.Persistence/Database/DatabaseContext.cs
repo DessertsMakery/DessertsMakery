@@ -13,7 +13,9 @@ internal sealed partial class DatabaseContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(ThisAssembly);
+
         modelBuilder.Seed<Contracts.Enums.RecipeDescriptionItemType, Models.Recipes.RecipeDescriptionItemType>(
+            Database,
             type => new Models.Recipes.RecipeDescriptionItemType { InternalId = type.Value, Name = type.Name }
         );
     }

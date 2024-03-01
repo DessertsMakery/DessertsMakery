@@ -1,6 +1,5 @@
 ﻿using DessertsMakery.Persistence.Database.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Sqlite.Infrastructure.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -13,17 +12,14 @@ internal static class DependencyInjectionExtensions
         Func<IServiceProvider, string> pathResolver
     )
     {
+        services.TryAddTransient<IEntitySeeder, EntitySeeder>();
         return services
             .AddDbContext<DatabaseContext>(
                 (provider, builder) =>
                 {
-                    builder.UseSqlite();
-#pragma warning disable EF1001
-                    var extension = builder.Options.FindExtension<SqliteOptionsExtension>()!;
-#pragma warning restore EF1001
                     var path = pathResolver(provider);
                     var connectionString = $"Data Source={path}";
-                    extension.WithConnectionString(connectionString);
+                    builder.UseSqlite(connectionString);
                 }
             )
             .AddDatabaseInterfaces<DatabaseContext>();
