@@ -4,7 +4,7 @@ namespace DessertsMakery.Persistence.Models.Orders;
 
 internal sealed class OrderItemDetailsConfiguration : BaseEntityTypeConfiguration<OrderItemDetails>
 {
-    public void Configure(EntityTypeBuilder<OrderItemDetails> builder)
+    protected override void Configure(EntityTypeBuilder<OrderItemDetails> builder)
     {
         builder.HasOne(x => x.CustomPrice).WithOne(x => x.OrderItemDetails);
         builder.HasOne(x => x.CustomDiscount).WithOne(x => x.OrderItemDetails);
