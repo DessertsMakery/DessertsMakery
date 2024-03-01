@@ -10,7 +10,12 @@ public abstract class Component : Entity
 
     public long MeasuringId { get; set; }
     public Measuring Measuring { get; set; } = null!;
+    public decimal? Proportion { get; set; }
 
+    public long? ParentId { get; set; }
+    public Component? Parent { get; set; }
+
+    public ICollection<Component> Children { get; set; } = new List<Component>();
     public ICollection<Consumable> Consumables { get; set; } = new List<Consumable>();
     public ICollection<ComponentMeasuringConversion> ComponentMeasuringConversions { get; set; } =
         new List<ComponentMeasuringConversion>();
