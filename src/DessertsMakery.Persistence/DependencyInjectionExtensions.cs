@@ -14,7 +14,17 @@ public static class DependencyInjectionExtensions
     private static string PathToDatabase(IServiceProvider serviceProvider)
     {
         var configuration = serviceProvider.GetRequiredService<IOptions<PersistenceConfiguration>>().Value;
-        var path = Path.Combine(configuration.Folder!, configuration.FileName);
-        return path;
+
+        if (string.IsNullOrWhiteSpace(configuration.Folder))
+        {
+            throw new InvalidOperationException("Folder for database should always be defined in configuration");
+        }
+
+        if (string.IsNullOrWhiteSpace(configuration.FileName))
+        {
+            throw new InvalidOperationException("File name of database should always be defined in configuration");
+        }
+
+        return Path.Combine(configuration.Folder!, configuration.FileName!);
     }
 }
