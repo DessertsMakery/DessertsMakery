@@ -3,9 +3,9 @@ using EnumType = DessertsMakery.Contracts.Enums.RecipeDescriptionItemType;
 
 namespace DessertsMakery.Persistence.Database.Seeding.Enums;
 
-internal sealed class RecipeDescriptionItemTypeToEntitySeeder : EnumToEntitySeeder<EnumType, EntityType>
+internal sealed class RecipeDescriptionItemTypeSeeder : EnumToEntitySeeder<EnumType, EntityType>
 {
-    public RecipeDescriptionItemTypeToEntitySeeder(IEntitySeeder entitySeeder)
+    public RecipeDescriptionItemTypeSeeder(IEntitySeeder entitySeeder)
         : base(entitySeeder) { }
 
     protected override EntityType Map(EnumType @enum) => new() { InternalId = @enum.Value, Name = @enum.Name };
