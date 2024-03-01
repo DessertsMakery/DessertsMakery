@@ -1,7 +1,7 @@
 ﻿using DessertsMakery.Common.Wrappers;
 using DessertsMakery.Persistence.Models;
 
-namespace DessertsMakery.Persistence.Database;
+namespace DessertsMakery.Persistence.Database.Seeding;
 
 internal sealed class EntitySeeder : IEntitySeeder
 {
