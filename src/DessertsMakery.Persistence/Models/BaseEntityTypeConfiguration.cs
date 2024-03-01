@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace DessertsMakery.Persistence.Models;
 
-internal abstract class BaseEntityTypeConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
+public abstract class BaseEntityTypeConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
     where TEntity : Entity
 {
     void IEntityTypeConfiguration<TEntity>.Configure(EntityTypeBuilder<TEntity> builder)

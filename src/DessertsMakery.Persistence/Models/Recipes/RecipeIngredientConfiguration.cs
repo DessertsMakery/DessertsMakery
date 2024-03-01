@@ -1,3 +1,11 @@
-﻿namespace DessertsMakery.Persistence.Models.Recipes;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-internal sealed class RecipeComponentConfiguration : BaseEntityTypeConfiguration<RecipeIngredient> { }
+namespace DessertsMakery.Persistence.Models.Recipes;
+
+internal sealed class RecipeComponentConfiguration : BaseEntityTypeConfiguration<RecipeIngredient>
+{
+    protected override void Configure(EntityTypeBuilder<RecipeIngredient> builder)
+    {
+        builder.Property(x => x.Name).HasMaxLength(100);
+    }
+}

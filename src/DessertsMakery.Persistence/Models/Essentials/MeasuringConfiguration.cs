@@ -7,6 +7,8 @@ internal sealed class MeasuringConfiguration : BaseEntityTypeConfiguration<Measu
     protected override void Configure(EntityTypeBuilder<Measuring> builder)
     {
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
+        builder.HasMany(x => x.Components).WithOne(x => x.Measuring);
+        builder.HasMany(x => x.ComponentMeasuringConversions).WithOne(x => x.Measuring);
         builder.HasMany(x => x.ConsumablePackagings).WithOne(x => x.Measuring);
         builder.HasMany(x => x.RecipeIngredients).WithOne(x => x.Measuring);
         builder.HasMany(x => x.DessertWeights).WithOne(x => x.Measuring);

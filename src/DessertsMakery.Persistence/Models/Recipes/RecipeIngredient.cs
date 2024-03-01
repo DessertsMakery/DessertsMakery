@@ -4,6 +4,8 @@ namespace DessertsMakery.Persistence.Models.Recipes;
 
 public sealed class RecipeIngredient : Entity
 {
+    public string? Name { get; set; }
+
     public long RecipeId { get; set; }
     public Recipe Recipe { get; set; } = null!;
 
