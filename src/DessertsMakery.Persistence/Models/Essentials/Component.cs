@@ -8,7 +8,12 @@ public abstract class Component : Entity
 {
     public string Name { get; set; } = null!;
 
+    public long MeasuringId { get; set; }
+    public Measuring Measuring { get; set; } = null!;
+
     public ICollection<Consumable> Consumables { get; set; } = new List<Consumable>();
+    public ICollection<ComponentMeasuringConversion> ComponentMeasuringConversions { get; set; } =
+        new List<ComponentMeasuringConversion>();
     public ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
     public ICollection<OrderItemDetailsAddition> OrderItemDetailsAdditions { get; set; } =
         new List<OrderItemDetailsAddition>();
