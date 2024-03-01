@@ -15,8 +15,5 @@ internal sealed class ComponentConfiguration : BaseEntityTypeConfiguration<Compo
         builder.HasMany(x => x.ComponentMeasuringConversions).WithOne(x => x.Component);
         builder.HasMany(x => x.Consumables).WithOne(x => x.Component);
         builder.HasMany(x => x.ComponentMeasuringConversions).WithOne(x => x.Component);
-        builder.HasMany(x => x.RecipeIngredients).WithOne(x => x.Ingredient);
-        builder.HasMany(x => x.OrderItemDetailsAdditions).WithOne(x => x.Addition);
-        builder.HasMany(x => x.OrderItemDetailPackagingComponents).WithOne(x => x.PackagingComponent);
     }
 }

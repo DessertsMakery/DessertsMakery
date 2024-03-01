@@ -7,5 +7,6 @@ internal sealed class RecipeComponentConfiguration : BaseEntityTypeConfiguration
     protected override void Configure(EntityTypeBuilder<RecipeIngredient> builder)
     {
         builder.Property(x => x.Name).HasMaxLength(100);
+        builder.HasOne(x => x.Ingredient).WithMany(x => x.RecipeIngredients);
     }
 }
