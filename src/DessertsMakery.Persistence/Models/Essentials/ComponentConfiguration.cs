@@ -12,6 +12,8 @@ internal sealed class ComponentConfiguration : BaseEntityTypeConfiguration<Compo
             .HasValue<Addition>(nameof(Addition))
             .HasValue<Ingredient>(nameof(Ingredient))
             .HasValue<PackagingComponent>(nameof(PackagingComponent));
+
+        builder.HasMany(x => x.Children).WithOne(x => x.Parent);
         builder.HasMany(x => x.ComponentMeasuringConversions).WithOne(x => x.Component);
         builder.HasMany(x => x.Consumables).WithOne(x => x.Component);
         builder.HasMany(x => x.ComponentMeasuringConversions).WithOne(x => x.Component);
