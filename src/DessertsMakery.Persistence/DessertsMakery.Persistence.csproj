@@ -89,9 +89,6 @@
       <Compile Update="Models\Essentials\MeasuringConfiguration.cs">
         <DependentUpon>Measuring.cs</DependentUpon>
       </Compile>
-      <Compile Update="Models\Essentials\IngredientConfiguration.cs">
-        <DependentUpon>Ingredient.cs</DependentUpon>
-      </Compile>
       <Compile Update="Models\Recipes\RecipeIngredientConfiguration.cs">
         <DependentUpon>RecipeIngredient.cs</DependentUpon>
       </Compile>
@@ -101,18 +98,16 @@
       <Compile Update="Models\Orders\OrderItemDetailsAdditionConfiguration.cs">
         <DependentUpon>OrderItemDetailsAddition.cs</DependentUpon>
       </Compile>
-      <Compile Update="Models\Essentials\AdditionConfiguration.cs">
-        <DependentUpon>Addition.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Models\Essentials\PackagingComponentConfiguration.cs">
-        <DependentUpon>PackagingComponent.cs</DependentUpon>
-      </Compile>
       <Compile Update="Database\DatabaseContext.Tables.cs">
         <DependentUpon>DatabaseContext.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Essentials\ComponentConfiguration.cs">
+        <DependentUpon>Component.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DessertsMakery.Common\DessertsMakery.Common.csproj" />
       <ProjectReference Include="..\DessertsMakery.Contracts\DessertsMakery.Contracts.csproj" />
     </ItemGroup>
 
