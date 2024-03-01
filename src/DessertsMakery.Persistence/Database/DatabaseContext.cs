@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
+using DessertsMakery.Persistence.Database.Interfaces;
 using DessertsMakery.Persistence.Database.Seeding;
 using Microsoft.EntityFrameworkCore;
 
 namespace DessertsMakery.Persistence.Database;
 
-internal sealed partial class DatabaseContext : DbContext
+internal sealed partial class DatabaseContext : DbContext, IUnitOfWork
 {
     private readonly IDatabaseSeeder _databaseSeeder;
     private static readonly Assembly ThisAssembly = typeof(DatabaseContext).Assembly;
