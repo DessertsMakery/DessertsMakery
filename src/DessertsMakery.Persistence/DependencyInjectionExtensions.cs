@@ -1,6 +1,7 @@
 ﻿using DessertsMakery.Common;
 using DessertsMakery.Common.Wrappers;
 using DessertsMakery.Persistence.Database;
+using DessertsMakery.Persistence.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -13,7 +14,8 @@ public static class DependencyInjectionExtensions
         services
             .AddWrappers()
             .AddConfiguration<PersistenceConfiguration>(configuration)
-            .AddDatabaseContext(PathToDatabase);
+            .AddDatabaseContext(PathToDatabase)
+            .AddRepositories();
 
     private static string PathToDatabase(IServiceProvider serviceProvider)
     {
