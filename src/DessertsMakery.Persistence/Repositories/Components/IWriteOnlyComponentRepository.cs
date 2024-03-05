@@ -4,7 +4,7 @@ namespace DessertsMakery.Persistence.Repositories.Components;
 
 public interface IWriteOnlyComponentRepository
 {
-    ValueTask CreateAsync<TComponent>(TComponent component, CancellationToken token = default)
+    ValueTask<TComponent> CreateAsync<TComponent>(TComponent component, CancellationToken token = default)
         where TComponent : Component;
 
     ValueTask UpdateAsync<TComponent>(

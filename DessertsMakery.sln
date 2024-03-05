@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DessertsMakery.Application.Core.Tests", "tests\Applications\DessertsMakery.Application.Core.Tests\DessertsMakery.Application.Core.Tests.csproj", "{53C4B75F-C7B0-49AC-A03A-57D30150A163}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DessertsMakery.Telegram.Application", "src\Telegram\DessertsMakery.Telegram.Application\DessertsMakery.Telegram.Application.csproj", "{BE5E8FDC-C518-4236-8FFD-3649BE753B85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{53C4B75F-C7B0-49AC-A03A-57D30150A163}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53C4B75F-C7B0-49AC-A03A-57D30150A163}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53C4B75F-C7B0-49AC-A03A-57D30150A163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE5E8FDC-C518-4236-8FFD-3649BE753B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE5E8FDC-C518-4236-8FFD-3649BE753B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE5E8FDC-C518-4236-8FFD-3649BE753B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE5E8FDC-C518-4236-8FFD-3649BE753B85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{809E9EC5-E8DE-40A5-9324-74F05CA7E042} = {498427A2-28B0-42C9-B5FF-F33D995F0F21}
@@ -84,5 +90,6 @@ Global
 		{219019BE-6FA6-4507-86C8-5DF7049584AC} = {C2C27E50-2D6B-4ED3-87CF-668D5062F67A}
 		{D9B127FD-DBF8-41C4-866B-DAA9A1DA3115} = {C2C27E50-2D6B-4ED3-87CF-668D5062F67A}
 		{53C4B75F-C7B0-49AC-A03A-57D30150A163} = {D9B127FD-DBF8-41C4-866B-DAA9A1DA3115}
+		{BE5E8FDC-C518-4236-8FFD-3649BE753B85} = {76AAC6DC-67FC-4D4D-B243-ED2192EE68CE}
 	EndGlobalSection
 EndGlobal

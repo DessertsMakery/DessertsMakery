@@ -6,5 +6,5 @@ public abstract class Entity
     public Guid ExternalId { get; internal set; }
     public DateTime CreatedAt { get; internal set; }
     public DateTime ModifiedAt { get; internal set; }
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; internal set; }
 }
