@@ -1,5 +1,6 @@
 ﻿using DessertsMakery.Application.Core.Services.WordSimilarity;
 using DessertsMakery.Essentials.Application.Commands.AddComponent.Core;
+using DessertsMakery.Persistence.Database.Interfaces;
 using DessertsMakery.Persistence.Models.Essentials;
 using DessertsMakery.Persistence.Repositories.Components;
 
@@ -9,9 +10,10 @@ internal sealed class AddIngredientCommandHandler : AddComponentCommandHandler<A
 {
     public AddIngredientCommandHandler(
         IWordSimilarityChecker wordSimilarityChecker,
-        IReadWriteComponentRepository componentRepository
+        IReadWriteComponentRepository componentRepository,
+        IUnitOfWork unitOfWork
     )
-        : base(wordSimilarityChecker, componentRepository) { }
+        : base(wordSimilarityChecker, componentRepository, unitOfWork) { }
 
     protected override Task<IReadOnlyCollection<Ingredient>> GetAllComponentsAsync(CancellationToken token) =>
         ComponentRepository.GetIngredientsAsync(filter: null, token);
