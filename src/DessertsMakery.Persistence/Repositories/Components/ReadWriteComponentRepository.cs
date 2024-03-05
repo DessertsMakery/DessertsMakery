@@ -1,5 +1,7 @@
 ﻿using System.Linq.Expressions;
+using DessertsMakery.Common.Wrappers;
 using DessertsMakery.Persistence.Database.Interfaces;
+using DessertsMakery.Persistence.Database.Seeding;
 using DessertsMakery.Persistence.Models.Essentials;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +10,18 @@ namespace DessertsMakery.Persistence.Repositories.Components;
 internal sealed class ReadWriteComponentRepository : IReadWriteComponentRepository, IRepository
 {
     private readonly IEssentialTables _essentialTables;
+    private readonly IEntitySeeder _entitySeeder;
+    private readonly IDateTimeProvider _dateTimeProvider;
 
-    public ReadWriteComponentRepository(IEssentialTables essentialTables)
+    public ReadWriteComponentRepository(
+        IEssentialTables essentialTables,
+        IEntitySeeder entitySeeder,
+        IDateTimeProvider dateTimeProvider
+    )
     {
         _essentialTables = essentialTables;
+        _entitySeeder = entitySeeder;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     #region Get With Filtering
@@ -58,10 +68,12 @@ internal sealed class ReadWriteComponentRepository : IReadWriteComponentReposito
 
     #region Create
 
-    public async ValueTask CreateAsync<TComponent>(TComponent component, CancellationToken token = default)
+    public async ValueTask<TComponent> CreateAsync<TComponent>(TComponent component, CancellationToken token = default)
         where TComponent : Component
     {
-        await _essentialTables.Components.AddAsync(component, token);
+        _entitySeeder.Seed(component);
+        var entry = await _essentialTables.Components.AddAsync(component, token);
+        return (TComponent)entry.Entity;
     }
 
     #endregion
@@ -80,6 +92,7 @@ internal sealed class ReadWriteComponentRepository : IReadWriteComponentReposito
         var concrete = ConvertOrThrowIfNotCorrectComponentType<TComponent>(externalId, component);
 
         modification(concrete);
+        concrete.ModifiedAt = _dateTimeProvider.GetUtcNow();
         table.Update(concrete);
     }
 
