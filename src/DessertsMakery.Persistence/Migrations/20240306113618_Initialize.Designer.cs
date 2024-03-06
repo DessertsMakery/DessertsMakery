@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DessertsMakery.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240301141931_Initializing")]
-    partial class Initializing
+    [Migration("20240306113618_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.16");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Consumables.Consumable", b =>
                 {
@@ -477,6 +477,7 @@ namespace DessertsMakery.Persistence.Migrations
 
                     b.Property<string>("ComponentType")
                         .IsRequired()
+                        .HasMaxLength(21)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -490,6 +491,9 @@ namespace DessertsMakery.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
+                    b.Property<long>("MeasuringId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("ModifiedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
@@ -500,16 +504,69 @@ namespace DessertsMakery.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<long?>("ParentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal?>("Proportion")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("InternalId");
 
                     b.HasIndex("ExternalId")
                         .IsUnique();
+
+                    b.HasIndex("MeasuringId");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Components");
 
                     b.HasDiscriminator<string>("ComponentType").HasValue("Component");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("DessertsMakery.Persistence.Models.Essentials.ComponentMeasuringConversion", b =>
+                {
+                    b.Property<long>("InternalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("ComponentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("DATE('now')");
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("MeasuringId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("DATE('now')");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("InternalId");
+
+                    b.HasIndex("ComponentId");
+
+                    b.HasIndex("ExternalId")
+                        .IsUnique();
+
+                    b.HasIndex("MeasuringId");
+
+                    b.ToTable("ComponentMeasuringConversion");
                 });
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Essentials.Measuring", b =>
@@ -545,6 +602,26 @@ namespace DessertsMakery.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Measurings");
+
+                    b.HasData(
+                        new
+                        {
+                            InternalId = 2L,
+                            CreatedAt = new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9910),
+                            ExternalId = new Guid("0685a1f7-c185-4045-b158-3ee72128d2cb"),
+                            IsDeleted = false,
+                            ModifiedAt = new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9910),
+                            Name = "Mass"
+                        },
+                        new
+                        {
+                            InternalId = 1L,
+                            CreatedAt = new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9924),
+                            ExternalId = new Guid("baf0dd1d-d24d-42a1-a112-e2bb55f6eeae"),
+                            IsDeleted = false,
+                            ModifiedAt = new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9924),
+                            Name = "Quantity"
+                        });
                 });
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Orders.CustomDiscount", b =>
@@ -1087,26 +1164,6 @@ namespace DessertsMakery.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("RecipeDescriptionItemTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            InternalId = 2L,
-                            CreatedAt = new DateTime(2024, 3, 1, 14, 19, 31, 237, DateTimeKind.Utc).AddTicks(5714),
-                            ExternalId = new Guid("220bba1c-c15a-45b3-a535-eba1c2256710"),
-                            IsDeleted = false,
-                            ModifiedAt = new DateTime(2024, 3, 1, 14, 19, 31, 237, DateTimeKind.Utc).AddTicks(5714),
-                            Name = "Remark"
-                        },
-                        new
-                        {
-                            InternalId = 1L,
-                            CreatedAt = new DateTime(2024, 3, 1, 14, 19, 31, 237, DateTimeKind.Utc).AddTicks(5719),
-                            ExternalId = new Guid("7e115719-3d52-4d10-92c6-94f8074b14c1"),
-                            IsDeleted = false,
-                            ModifiedAt = new DateTime(2024, 3, 1, 14, 19, 31, 237, DateTimeKind.Utc).AddTicks(5719),
-                            Name = "Step"
-                        });
                 });
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Recipes.RecipeIngredient", b =>
@@ -1115,7 +1172,7 @@ namespace DessertsMakery.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("ComponentInternalId")
+                    b.Property<long?>("AdditionInternalId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
@@ -1143,12 +1200,19 @@ namespace DessertsMakery.Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasDefaultValueSql("DATE('now')");
 
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("PackagingComponentInternalId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<long>("RecipeId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("InternalId");
 
-                    b.HasIndex("ComponentInternalId");
+                    b.HasIndex("AdditionInternalId");
 
                     b.HasIndex("ExternalId")
                         .IsUnique();
@@ -1156,6 +1220,8 @@ namespace DessertsMakery.Persistence.Migrations
                     b.HasIndex("IngredientId");
 
                     b.HasIndex("MeasuringId");
+
+                    b.HasIndex("PackagingComponentInternalId");
 
                     b.HasIndex("RecipeId");
 
@@ -1319,6 +1385,42 @@ namespace DessertsMakery.Persistence.Migrations
                     b.Navigation("Measuring");
                 });
 
+            modelBuilder.Entity("DessertsMakery.Persistence.Models.Essentials.Component", b =>
+                {
+                    b.HasOne("DessertsMakery.Persistence.Models.Essentials.Measuring", "Measuring")
+                        .WithMany("Components")
+                        .HasForeignKey("MeasuringId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DessertsMakery.Persistence.Models.Essentials.Component", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Measuring");
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("DessertsMakery.Persistence.Models.Essentials.ComponentMeasuringConversion", b =>
+                {
+                    b.HasOne("DessertsMakery.Persistence.Models.Essentials.Component", "Component")
+                        .WithMany("ComponentMeasuringConversions")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DessertsMakery.Persistence.Models.Essentials.Measuring", "Measuring")
+                        .WithMany("ComponentMeasuringConversions")
+                        .HasForeignKey("MeasuringId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Component");
+
+                    b.Navigation("Measuring");
+                });
+
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Orders.Order", b =>
                 {
                     b.HasOne("DessertsMakery.Persistence.Models.Customers.Customer", "Customer")
@@ -1477,12 +1579,12 @@ namespace DessertsMakery.Persistence.Migrations
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Recipes.RecipeIngredient", b =>
                 {
-                    b.HasOne("DessertsMakery.Persistence.Models.Essentials.Component", null)
+                    b.HasOne("DessertsMakery.Persistence.Models.Essentials.Addition", null)
                         .WithMany("RecipeIngredients")
-                        .HasForeignKey("ComponentInternalId");
+                        .HasForeignKey("AdditionInternalId");
 
                     b.HasOne("DessertsMakery.Persistence.Models.Essentials.Ingredient", "Ingredient")
-                        .WithMany()
+                        .WithMany("RecipeIngredients")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1492,6 +1594,10 @@ namespace DessertsMakery.Persistence.Migrations
                         .HasForeignKey("MeasuringId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("DessertsMakery.Persistence.Models.Essentials.PackagingComponent", null)
+                        .WithMany("RecipeIngredients")
+                        .HasForeignKey("PackagingComponentInternalId");
 
                     b.HasOne("DessertsMakery.Persistence.Models.Recipes.Recipe", "Recipe")
                         .WithMany("RecipeIngredients")
@@ -1558,13 +1664,19 @@ namespace DessertsMakery.Persistence.Migrations
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Essentials.Component", b =>
                 {
-                    b.Navigation("Consumables");
+                    b.Navigation("Children");
 
-                    b.Navigation("RecipeIngredients");
+                    b.Navigation("ComponentMeasuringConversions");
+
+                    b.Navigation("Consumables");
                 });
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Essentials.Measuring", b =>
                 {
+                    b.Navigation("ComponentMeasuringConversions");
+
+                    b.Navigation("Components");
+
                     b.Navigation("ConsumablePackagings");
 
                     b.Navigation("DessertWeights");
@@ -1625,6 +1737,8 @@ namespace DessertsMakery.Persistence.Migrations
                     b.Navigation("OrderItemDetailPackagingComponents");
 
                     b.Navigation("OrderItemDetailsAdditions");
+
+                    b.Navigation("RecipeIngredients");
                 });
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Essentials.Ingredient", b =>
@@ -1632,6 +1746,8 @@ namespace DessertsMakery.Persistence.Migrations
                     b.Navigation("OrderItemDetailPackagingComponents");
 
                     b.Navigation("OrderItemDetailsAdditions");
+
+                    b.Navigation("RecipeIngredients");
                 });
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Essentials.PackagingComponent", b =>
@@ -1639,6 +1755,8 @@ namespace DessertsMakery.Persistence.Migrations
                     b.Navigation("OrderItemDetailPackagingComponents");
 
                     b.Navigation("OrderItemDetailsAdditions");
+
+                    b.Navigation("RecipeIngredients");
                 });
 #pragma warning restore 612, 618
         }
