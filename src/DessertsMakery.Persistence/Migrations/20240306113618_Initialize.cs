@@ -8,31 +8,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DessertsMakery.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Initializing : Migration
+    public partial class Initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Components",
-                columns: table => new
-                {
-                    InternalId = table
-                        .Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    ComponentType = table.Column<string>(type: "TEXT", nullable: false),
-                    ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
-                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Components", x => x.InternalId);
-                }
-            );
-
             migrationBuilder.CreateTable(
                 name: "CustomDiscounts",
                 columns: table => new
@@ -197,34 +177,6 @@ namespace DessertsMakery.Persistence.Migrations
             );
 
             migrationBuilder.CreateTable(
-                name: "Consumables",
-                columns: table => new
-                {
-                    InternalId = table
-                        .Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Firm = table.Column<string>(type: "TEXT", nullable: true),
-                    ComponentId = table.Column<long>(type: "INTEGER", nullable: false),
-                    ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
-                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Consumables", x => x.InternalId);
-                    table.ForeignKey(
-                        name: "FK_Consumables_Components_ComponentId",
-                        column: x => x.ComponentId,
-                        principalTable: "Components",
-                        principalColumn: "InternalId",
-                        onDelete: ReferentialAction.Cascade
-                    );
-                }
-            );
-
-            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -281,6 +233,42 @@ namespace DessertsMakery.Persistence.Migrations
                         column: x => x.CustomPriceId,
                         principalTable: "CustomPrices",
                         principalColumn: "InternalId"
+                    );
+                }
+            );
+
+            migrationBuilder.CreateTable(
+                name: "Components",
+                columns: table => new
+                {
+                    InternalId = table
+                        .Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    MeasuringId = table.Column<long>(type: "INTEGER", nullable: false),
+                    Proportion = table.Column<decimal>(type: "TEXT", nullable: true),
+                    ParentId = table.Column<long>(type: "INTEGER", nullable: true),
+                    ComponentType = table.Column<string>(type: "TEXT", maxLength: 21, nullable: false),
+                    ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Components", x => x.InternalId);
+                    table.ForeignKey(
+                        name: "FK_Components_Components_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Components",
+                        principalColumn: "InternalId"
+                    );
+                    table.ForeignKey(
+                        name: "FK_Components_Measurings_MeasuringId",
+                        column: x => x.MeasuringId,
+                        principalTable: "Measurings",
+                        principalColumn: "InternalId",
+                        onDelete: ReferentialAction.Cascade
                     );
                 }
             );
@@ -349,17 +337,14 @@ namespace DessertsMakery.Persistence.Migrations
             );
 
             migrationBuilder.CreateTable(
-                name: "RecipeIngredients",
+                name: "OrderItemDetailsImages",
                 columns: table => new
                 {
                     InternalId = table
                         .Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    RecipeId = table.Column<long>(type: "INTEGER", nullable: false),
-                    IngredientId = table.Column<long>(type: "INTEGER", nullable: false),
-                    MeasuringValue = table.Column<decimal>(type: "TEXT", nullable: false),
-                    MeasuringId = table.Column<long>(type: "INTEGER", nullable: false),
-                    ComponentInternalId = table.Column<long>(type: "INTEGER", nullable: true),
+                    Image = table.Column<byte[]>(type: "BLOB", nullable: false),
+                    OrderItemDetailsId = table.Column<long>(type: "INTEGER", nullable: false),
                     ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
                     ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
@@ -367,31 +352,11 @@ namespace DessertsMakery.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecipeIngredients", x => x.InternalId);
+                    table.PrimaryKey("PK_OrderItemDetailsImages", x => x.InternalId);
                     table.ForeignKey(
-                        name: "FK_RecipeIngredients_Components_ComponentInternalId",
-                        column: x => x.ComponentInternalId,
-                        principalTable: "Components",
-                        principalColumn: "InternalId"
-                    );
-                    table.ForeignKey(
-                        name: "FK_RecipeIngredients_Components_IngredientId",
-                        column: x => x.IngredientId,
-                        principalTable: "Components",
-                        principalColumn: "InternalId",
-                        onDelete: ReferentialAction.Cascade
-                    );
-                    table.ForeignKey(
-                        name: "FK_RecipeIngredients_Measurings_MeasuringId",
-                        column: x => x.MeasuringId,
-                        principalTable: "Measurings",
-                        principalColumn: "InternalId",
-                        onDelete: ReferentialAction.Cascade
-                    );
-                    table.ForeignKey(
-                        name: "FK_RecipeIngredients_Recipes_RecipeId",
-                        column: x => x.RecipeId,
-                        principalTable: "Recipes",
+                        name: "FK_OrderItemDetailsImages_OrderItemDetails_OrderItemDetailsId",
+                        column: x => x.OrderItemDetailsId,
+                        principalTable: "OrderItemDetails",
                         principalColumn: "InternalId",
                         onDelete: ReferentialAction.Cascade
                     );
@@ -399,15 +364,15 @@ namespace DessertsMakery.Persistence.Migrations
             );
 
             migrationBuilder.CreateTable(
-                name: "ConsumablePackagings",
+                name: "ComponentMeasuringConversion",
                 columns: table => new
                 {
                     InternalId = table
                         .Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ConsumableId = table.Column<long>(type: "INTEGER", nullable: false),
-                    MeasuringValue = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ComponentId = table.Column<long>(type: "INTEGER", nullable: false),
                     MeasuringId = table.Column<long>(type: "INTEGER", nullable: false),
+                    Value = table.Column<decimal>(type: "TEXT", nullable: false),
                     ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
                     ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
@@ -415,18 +380,46 @@ namespace DessertsMakery.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ConsumablePackagings", x => x.InternalId);
+                    table.PrimaryKey("PK_ComponentMeasuringConversion", x => x.InternalId);
                     table.ForeignKey(
-                        name: "FK_ConsumablePackagings_Consumables_ConsumableId",
-                        column: x => x.ConsumableId,
-                        principalTable: "Consumables",
+                        name: "FK_ComponentMeasuringConversion_Components_ComponentId",
+                        column: x => x.ComponentId,
+                        principalTable: "Components",
                         principalColumn: "InternalId",
                         onDelete: ReferentialAction.Cascade
                     );
                     table.ForeignKey(
-                        name: "FK_ConsumablePackagings_Measurings_MeasuringId",
+                        name: "FK_ComponentMeasuringConversion_Measurings_MeasuringId",
                         column: x => x.MeasuringId,
                         principalTable: "Measurings",
+                        principalColumn: "InternalId",
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
+
+            migrationBuilder.CreateTable(
+                name: "Consumables",
+                columns: table => new
+                {
+                    InternalId = table
+                        .Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Firm = table.Column<string>(type: "TEXT", nullable: true),
+                    ComponentId = table.Column<long>(type: "INTEGER", nullable: false),
+                    ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Consumables", x => x.InternalId);
+                    table.ForeignKey(
+                        name: "FK_Consumables_Components_ComponentId",
+                        column: x => x.ComponentId,
+                        principalTable: "Components",
                         principalColumn: "InternalId",
                         onDelete: ReferentialAction.Cascade
                     );
@@ -530,14 +523,19 @@ namespace DessertsMakery.Persistence.Migrations
             );
 
             migrationBuilder.CreateTable(
-                name: "OrderItemDetailsImages",
+                name: "RecipeIngredients",
                 columns: table => new
                 {
                     InternalId = table
                         .Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Image = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    OrderItemDetailsId = table.Column<long>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    RecipeId = table.Column<long>(type: "INTEGER", nullable: false),
+                    IngredientId = table.Column<long>(type: "INTEGER", nullable: false),
+                    MeasuringValue = table.Column<decimal>(type: "TEXT", nullable: false),
+                    MeasuringId = table.Column<long>(type: "INTEGER", nullable: false),
+                    AdditionInternalId = table.Column<long>(type: "INTEGER", nullable: true),
+                    PackagingComponentInternalId = table.Column<long>(type: "INTEGER", nullable: true),
                     ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
                     ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
@@ -545,11 +543,37 @@ namespace DessertsMakery.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItemDetailsImages", x => x.InternalId);
+                    table.PrimaryKey("PK_RecipeIngredients", x => x.InternalId);
                     table.ForeignKey(
-                        name: "FK_OrderItemDetailsImages_OrderItemDetails_OrderItemDetailsId",
-                        column: x => x.OrderItemDetailsId,
-                        principalTable: "OrderItemDetails",
+                        name: "FK_RecipeIngredients_Components_AdditionInternalId",
+                        column: x => x.AdditionInternalId,
+                        principalTable: "Components",
+                        principalColumn: "InternalId"
+                    );
+                    table.ForeignKey(
+                        name: "FK_RecipeIngredients_Components_IngredientId",
+                        column: x => x.IngredientId,
+                        principalTable: "Components",
+                        principalColumn: "InternalId",
+                        onDelete: ReferentialAction.Cascade
+                    );
+                    table.ForeignKey(
+                        name: "FK_RecipeIngredients_Components_PackagingComponentInternalId",
+                        column: x => x.PackagingComponentInternalId,
+                        principalTable: "Components",
+                        principalColumn: "InternalId"
+                    );
+                    table.ForeignKey(
+                        name: "FK_RecipeIngredients_Measurings_MeasuringId",
+                        column: x => x.MeasuringId,
+                        principalTable: "Measurings",
+                        principalColumn: "InternalId",
+                        onDelete: ReferentialAction.Cascade
+                    );
+                    table.ForeignKey(
+                        name: "FK_RecipeIngredients_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
                         principalColumn: "InternalId",
                         onDelete: ReferentialAction.Cascade
                     );
@@ -591,14 +615,15 @@ namespace DessertsMakery.Persistence.Migrations
             );
 
             migrationBuilder.CreateTable(
-                name: "ConsumablePackagingImages",
+                name: "ConsumablePackagings",
                 columns: table => new
                 {
                     InternalId = table
                         .Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Image = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    ConsumablePackagingId = table.Column<long>(type: "INTEGER", nullable: false),
+                    ConsumableId = table.Column<long>(type: "INTEGER", nullable: false),
+                    MeasuringValue = table.Column<decimal>(type: "TEXT", nullable: false),
+                    MeasuringId = table.Column<long>(type: "INTEGER", nullable: false),
                     ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
                     ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
@@ -606,38 +631,18 @@ namespace DessertsMakery.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ConsumablePackagingImages", x => x.InternalId);
+                    table.PrimaryKey("PK_ConsumablePackagings", x => x.InternalId);
                     table.ForeignKey(
-                        name: "FK_ConsumablePackagingImages_ConsumablePackagings_ConsumablePackagingId",
-                        column: x => x.ConsumablePackagingId,
-                        principalTable: "ConsumablePackagings",
+                        name: "FK_ConsumablePackagings_Consumables_ConsumableId",
+                        column: x => x.ConsumableId,
+                        principalTable: "Consumables",
                         principalColumn: "InternalId",
                         onDelete: ReferentialAction.Cascade
                     );
-                }
-            );
-
-            migrationBuilder.CreateTable(
-                name: "ConsumablePackagingPrices",
-                columns: table => new
-                {
-                    InternalId = table
-                        .Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Price = table.Column<decimal>(type: "TEXT", nullable: false),
-                    ConsumablePackagingId = table.Column<long>(type: "INTEGER", nullable: false),
-                    ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
-                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ConsumablePackagingPrices", x => x.InternalId);
                     table.ForeignKey(
-                        name: "FK_ConsumablePackagingPrices_ConsumablePackagings_ConsumablePackagingId",
-                        column: x => x.ConsumablePackagingId,
-                        principalTable: "ConsumablePackagings",
+                        name: "FK_ConsumablePackagings_Measurings_MeasuringId",
+                        column: x => x.MeasuringId,
+                        principalTable: "Measurings",
                         principalColumn: "InternalId",
                         onDelete: ReferentialAction.Cascade
                     );
@@ -706,15 +711,14 @@ namespace DessertsMakery.Persistence.Migrations
             );
 
             migrationBuilder.CreateTable(
-                name: "PurchaseItems",
+                name: "ConsumablePackagingImages",
                 columns: table => new
                 {
                     InternalId = table
                         .Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    PurchaseId = table.Column<long>(type: "INTEGER", nullable: false),
-                    ConsumablePackagingPriceId = table.Column<long>(type: "INTEGER", nullable: false),
-                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Image = table.Column<byte[]>(type: "BLOB", nullable: false),
+                    ConsumablePackagingId = table.Column<long>(type: "INTEGER", nullable: false),
                     ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
                     ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
@@ -722,18 +726,38 @@ namespace DessertsMakery.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PurchaseItems", x => x.InternalId);
+                    table.PrimaryKey("PK_ConsumablePackagingImages", x => x.InternalId);
                     table.ForeignKey(
-                        name: "FK_PurchaseItems_ConsumablePackagingPrices_ConsumablePackagingPriceId",
-                        column: x => x.ConsumablePackagingPriceId,
-                        principalTable: "ConsumablePackagingPrices",
+                        name: "FK_ConsumablePackagingImages_ConsumablePackagings_ConsumablePackagingId",
+                        column: x => x.ConsumablePackagingId,
+                        principalTable: "ConsumablePackagings",
                         principalColumn: "InternalId",
                         onDelete: ReferentialAction.Cascade
                     );
+                }
+            );
+
+            migrationBuilder.CreateTable(
+                name: "ConsumablePackagingPrices",
+                columns: table => new
+                {
+                    InternalId = table
+                        .Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ConsumablePackagingId = table.Column<long>(type: "INTEGER", nullable: false),
+                    ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConsumablePackagingPrices", x => x.InternalId);
                     table.ForeignKey(
-                        name: "FK_PurchaseItems_Purchases_PurchaseId",
-                        column: x => x.PurchaseId,
-                        principalTable: "Purchases",
+                        name: "FK_ConsumablePackagingPrices_ConsumablePackagings_ConsumablePackagingId",
+                        column: x => x.ConsumablePackagingId,
+                        principalTable: "ConsumablePackagings",
                         principalColumn: "InternalId",
                         onDelete: ReferentialAction.Cascade
                     );
@@ -818,28 +842,82 @@ namespace DessertsMakery.Persistence.Migrations
                 }
             );
 
+            migrationBuilder.CreateTable(
+                name: "PurchaseItems",
+                columns: table => new
+                {
+                    InternalId = table
+                        .Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PurchaseId = table.Column<long>(type: "INTEGER", nullable: false),
+                    ConsumablePackagingPriceId = table.Column<long>(type: "INTEGER", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseItems", x => x.InternalId);
+                    table.ForeignKey(
+                        name: "FK_PurchaseItems_ConsumablePackagingPrices_ConsumablePackagingPriceId",
+                        column: x => x.ConsumablePackagingPriceId,
+                        principalTable: "ConsumablePackagingPrices",
+                        principalColumn: "InternalId",
+                        onDelete: ReferentialAction.Cascade
+                    );
+                    table.ForeignKey(
+                        name: "FK_PurchaseItems_Purchases_PurchaseId",
+                        column: x => x.PurchaseId,
+                        principalTable: "Purchases",
+                        principalColumn: "InternalId",
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
+
             migrationBuilder.InsertData(
-                table: "RecipeDescriptionItemTypes",
+                table: "Measurings",
                 columns: new[] { "InternalId", "CreatedAt", "ExternalId", "IsDeleted", "ModifiedAt", "Name" },
                 values: new object[,]
                 {
                     {
                         1L,
-                        new DateTime(2024, 3, 1, 14, 19, 31, 237, DateTimeKind.Utc).AddTicks(5719),
-                        new Guid("7e115719-3d52-4d10-92c6-94f8074b14c1"),
+                        new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9924),
+                        new Guid("baf0dd1d-d24d-42a1-a112-e2bb55f6eeae"),
                         false,
-                        new DateTime(2024, 3, 1, 14, 19, 31, 237, DateTimeKind.Utc).AddTicks(5719),
-                        "Step"
+                        new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9924),
+                        "Quantity"
                     },
                     {
                         2L,
-                        new DateTime(2024, 3, 1, 14, 19, 31, 237, DateTimeKind.Utc).AddTicks(5714),
-                        new Guid("220bba1c-c15a-45b3-a535-eba1c2256710"),
+                        new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9910),
+                        new Guid("0685a1f7-c185-4045-b158-3ee72128d2cb"),
                         false,
-                        new DateTime(2024, 3, 1, 14, 19, 31, 237, DateTimeKind.Utc).AddTicks(5714),
-                        "Remark"
+                        new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9910),
+                        "Mass"
                     }
                 }
+            );
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ComponentMeasuringConversion_ComponentId",
+                table: "ComponentMeasuringConversion",
+                column: "ComponentId"
+            );
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ComponentMeasuringConversion_ExternalId",
+                table: "ComponentMeasuringConversion",
+                column: "ExternalId",
+                unique: true
+            );
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ComponentMeasuringConversion_MeasuringId",
+                table: "ComponentMeasuringConversion",
+                column: "MeasuringId"
             );
 
             migrationBuilder.CreateIndex(
@@ -848,6 +926,10 @@ namespace DessertsMakery.Persistence.Migrations
                 column: "ExternalId",
                 unique: true
             );
+
+            migrationBuilder.CreateIndex(name: "IX_Components_MeasuringId", table: "Components", column: "MeasuringId");
+
+            migrationBuilder.CreateIndex(name: "IX_Components_ParentId", table: "Components", column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ConsumablePackagingImages_ConsumablePackagingId",
@@ -1212,9 +1294,9 @@ namespace DessertsMakery.Persistence.Migrations
             );
 
             migrationBuilder.CreateIndex(
-                name: "IX_RecipeIngredients_ComponentInternalId",
+                name: "IX_RecipeIngredients_AdditionInternalId",
                 table: "RecipeIngredients",
-                column: "ComponentInternalId"
+                column: "AdditionInternalId"
             );
 
             migrationBuilder.CreateIndex(
@@ -1237,6 +1319,12 @@ namespace DessertsMakery.Persistence.Migrations
             );
 
             migrationBuilder.CreateIndex(
+                name: "IX_RecipeIngredients_PackagingComponentInternalId",
+                table: "RecipeIngredients",
+                column: "PackagingComponentInternalId"
+            );
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RecipeIngredients_RecipeId",
                 table: "RecipeIngredients",
                 column: "RecipeId"
@@ -1253,6 +1341,8 @@ namespace DessertsMakery.Persistence.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(name: "ComponentMeasuringConversion");
+
             migrationBuilder.DropTable(name: "ConsumablePackagingImages");
 
             migrationBuilder.DropTable(name: "DessertPricings");
@@ -1303,9 +1393,9 @@ namespace DessertsMakery.Persistence.Migrations
 
             migrationBuilder.DropTable(name: "Consumables");
 
-            migrationBuilder.DropTable(name: "Measurings");
-
             migrationBuilder.DropTable(name: "Components");
+
+            migrationBuilder.DropTable(name: "Measurings");
         }
     }
 }

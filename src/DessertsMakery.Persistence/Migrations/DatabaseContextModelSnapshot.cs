@@ -15,7 +15,7 @@ namespace DessertsMakery.Persistence.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.16");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Consumables.Consumable", b =>
                 {
@@ -474,6 +474,7 @@ namespace DessertsMakery.Persistence.Migrations
 
                     b.Property<string>("ComponentType")
                         .IsRequired()
+                        .HasMaxLength(21)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -603,19 +604,19 @@ namespace DessertsMakery.Persistence.Migrations
                         new
                         {
                             InternalId = 2L,
-                            CreatedAt = new DateTime(2024, 3, 1, 16, 32, 57, 688, DateTimeKind.Utc).AddTicks(9437),
-                            ExternalId = new Guid("ceb3add0-90ba-4078-9bae-8e86520a49e6"),
+                            CreatedAt = new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9910),
+                            ExternalId = new Guid("0685a1f7-c185-4045-b158-3ee72128d2cb"),
                             IsDeleted = false,
-                            ModifiedAt = new DateTime(2024, 3, 1, 16, 32, 57, 688, DateTimeKind.Utc).AddTicks(9437),
+                            ModifiedAt = new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9910),
                             Name = "Mass"
                         },
                         new
                         {
                             InternalId = 1L,
-                            CreatedAt = new DateTime(2024, 3, 1, 16, 32, 57, 688, DateTimeKind.Utc).AddTicks(9443),
-                            ExternalId = new Guid("70ebbf47-48b3-490f-b432-2e853ddf7e54"),
+                            CreatedAt = new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9924),
+                            ExternalId = new Guid("baf0dd1d-d24d-42a1-a112-e2bb55f6eeae"),
                             IsDeleted = false,
-                            ModifiedAt = new DateTime(2024, 3, 1, 16, 32, 57, 688, DateTimeKind.Utc).AddTicks(9443),
+                            ModifiedAt = new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9924),
                             Name = "Quantity"
                         });
                 });

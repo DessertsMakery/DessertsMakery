@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 
@@ -13,32 +12,29 @@ public static class DependencyInjectionExtensions
     public static IServiceCollection AddTelegramInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration
-    )
+    ) => services.AddTelegramOptions(configuration).TryAddTelegramBotListener().TryAddTelegramBotClient();
+
+    private static IServiceCollection AddTelegramOptions(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddConfiguration<TelegramConfiguration>(configuration);
-        services.TryAddScoped(TelegramBotClientOptionsFactory);
-        services.TryAddTelegramBotListener();
-        services.TryAddTelegramBotClient();
-        return services;
+        services.TryAddSingleton<TelegramBotClientOptionsFactory>();
+        services.TryAddSingleton<TelegramBotClientOptions>(provider =>
+            provider.GetRequiredService<TelegramBotClientOptionsFactory>().Create()
+        );
+        return services.AddConfiguration<ReceiverOptions>(configuration);
     }
 
-    private static TelegramBotClientOptions TelegramBotClientOptionsFactory(IServiceProvider provider)
+    private static IServiceCollection TryAddTelegramBotListener(this IServiceCollection services)
     {
-        var configuration = provider.GetRequiredService<IOptionsSnapshot<TelegramConfiguration>>().Value;
-        return new TelegramBotClientOptions(configuration.Token);
-    }
-
-    private static void TryAddTelegramBotListener(this IServiceCollection services)
-    {
-        services.TryAddSingleton<ReceiverOptions>();
         services.AddHttpClient<TelegramBotListener>();
         services.TryAddSingleton<TelegramUpdateHandler>();
         services.TryAddSingleton<ITelegramBotListener, TelegramBotListener>();
+        return services;
     }
 
-    private static void TryAddTelegramBotClient(this IServiceCollection services)
+    private static IServiceCollection TryAddTelegramBotClient(this IServiceCollection services)
     {
         services.AddHttpClient<TelegramBotClient>();
         services.TryAddSingleton<ITelegramBotClient, TelegramBotClient>();
+        return services;
     }
 }
