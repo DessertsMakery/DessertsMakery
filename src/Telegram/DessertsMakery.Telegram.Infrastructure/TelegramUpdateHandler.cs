@@ -16,7 +16,7 @@ internal sealed class TelegramUpdateHandler : IUpdateHandler
 
     public Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("{Id}, {Type}", update.Id, update.Type);
+        _logger.LogInformation("{Id}, {Type}, {Message}", update.Id, update.Type, update.Message!.Text);
         return Task.CompletedTask;
     }
 
