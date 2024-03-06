@@ -12,7 +12,12 @@ public static class DependencyInjectionExtensions
     public static IServiceCollection AddTelegramInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration
-    ) => services.AddTelegramOptions(configuration).TryAddTelegramBotListener().TryAddTelegramBotClient();
+    )
+    {
+        services.TryAddScoped<ITelegramAuthenticator, TelegramAuthenticator>();
+        services.TryAddTransient<IUpdatePayloadMapper, UpdatePayloadMapper>();
+        return services.AddTelegramOptions(configuration).TryAddTelegramBotListener().TryAddTelegramBotClient();
+    }
 
     private static IServiceCollection AddTelegramOptions(this IServiceCollection services, IConfiguration configuration)
     {
