@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using DessertsMakery.Telegram.Application.Menu;
 using DessertsMakery.Telegram.Application.Users;
+using DessertsMakery.Telegram.Application.Utilities;
 using MediatR.NotificationPublishers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ public static class DependencyInjectionExtensions
     )
     {
         return services
+            .AddTelegramUtilities()
             .AddTelegramMenu()
             .AddTelegramUsers(configuration)
             .AddMediatR(x =>

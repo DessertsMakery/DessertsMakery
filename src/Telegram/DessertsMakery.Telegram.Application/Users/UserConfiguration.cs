@@ -2,5 +2,5 @@
 
 public sealed class UserConfiguration
 {
-    public string[]? AllowedUserNames { get; set; }
+    public string[]? AllowedUsernames { get; set; }
 }
