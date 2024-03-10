@@ -1,8 +1,7 @@
 ﻿namespace DessertsMakery.Telegram.Application.Menu;
 
-public interface IMenuSection
+public interface IMenuSection : IMenuParent
 {
-    string? Name { get; }
+    string Name { get; }
     IMenuSection? Parent { get; }
-    IEnumerable<IMenuSection> Children { get; }
 }

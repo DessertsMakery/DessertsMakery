@@ -39,7 +39,7 @@ internal sealed class TelegramUpdateHandler : IUpdateHandler
         }
 
         var notificationType = OpenGenericNotification.MakeGenericType(payload.GetType());
-        var notification = Activator.CreateInstance(notificationType, update.Id, update.Type, payload)!;
+        var notification = Activator.CreateInstance(notificationType, botClient, update.Id, update.Type, payload)!;
         return _mediator.Publish(notification, cancellationToken);
     }
 
