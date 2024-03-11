@@ -5,10 +5,10 @@ namespace DessertsMakery.Persistence.Database.Interfaces;
 
 public interface IDessertTables : ITables
 {
-    DbSet<DessertFamily> DessertFamilies { get; set; }
-    DbSet<DessertFamilyWeight> DessertFamilyWeights { get; set; }
-    DbSet<DessertPricing> DessertPricings { get; set; }
-    DbSet<DessertTemplate> DessertTemplates { get; set; }
-    DbSet<DessertTemplateRecipe> DessertTemplateRecipes { get; set; }
-    DbSet<DessertWeight> DessertWeights { get; set; }
+    DbSet<DessertFamily> DessertFamilies { get; }
+    DbSet<DessertFamilyWeight> DessertFamilyWeights { get; }
+    DbSet<DessertPricing> DessertPricings { get; }
+    DbSet<DessertTemplate> DessertTemplates { get; }
+    DbSet<DessertTemplateRecipe> DessertTemplateRecipes { get; }
+    DbSet<DessertWeight> DessertWeights { get; }
 }

@@ -12,15 +12,12 @@ public static class DependencyInjectionExtensions
 {
     private static readonly Assembly ThisAssembly = typeof(DependencyInjectionExtensions).Assembly;
 
-    public static IServiceCollection AddTelegramApplication(
-        this IServiceCollection services,
-        IConfiguration configuration
-    )
+    public static IServiceCollection AddTelegramApplication(this IServiceCollection services)
     {
         return services
             .AddTelegramUtilities()
             .AddTelegramMenu()
-            .AddTelegramUsers(configuration)
+            .AddTelegramUsers()
             .AddMediatR(x =>
             {
                 x.NotificationPublisher = new TaskWhenAllPublisher();

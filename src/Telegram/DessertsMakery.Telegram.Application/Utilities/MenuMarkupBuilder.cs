@@ -1,4 +1,5 @@
-﻿using DessertsMakery.Telegram.Application.Menu;
+﻿using CSharpFunctionalExtensions;
+using DessertsMakery.Telegram.Application.Menu;
 using DessertsMakery.Telegram.Application.Users;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -6,19 +7,19 @@ namespace DessertsMakery.Telegram.Application.Utilities;
 
 internal sealed class MenuMarkupBuilder : IMenuMarkupBuilder
 {
-    private readonly IUserMenuState _userMenuState;
+    private readonly ITelegramModeratorMenuState _telegramModeratorMenuState;
     private readonly IMenuRoot _menuRoot;
 
-    public MenuMarkupBuilder(IUserMenuState userMenuState, IMenuRoot menuRoot)
+    public MenuMarkupBuilder(ITelegramModeratorMenuState telegramModeratorMenuState, IMenuRoot menuRoot)
     {
-        _userMenuState = userMenuState;
+        _telegramModeratorMenuState = telegramModeratorMenuState;
         _menuRoot = menuRoot;
     }
 
-    public IReplyMarkup Build()
+    public async Task<IReplyMarkup> BuildAsync(CancellationToken token)
     {
-        var breadcrumbs = _userMenuState
-            .TryGetOrSet(() => Breadcrumbs.Empty(_menuRoot))
+        var breadcrumbs = await _telegramModeratorMenuState
+            .TryGetOrSetAsync(() => Breadcrumbs.Empty(_menuRoot), token)
             .GetValueOrThrow("Cannot build menu when no breadcrumbs");
 
         var buttons = GetButtons(breadcrumbs.Current);

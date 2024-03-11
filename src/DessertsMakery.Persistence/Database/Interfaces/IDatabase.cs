@@ -7,4 +7,5 @@ public interface IDatabase
         IEssentialTables,
         IOrderTables,
         IPurchaseTables,
-        IRecipeTables { }
+        IRecipeTables,
+        ITelegramTables { }

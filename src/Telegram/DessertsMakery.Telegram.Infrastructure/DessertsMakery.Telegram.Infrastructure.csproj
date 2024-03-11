@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\DessertsMakery.Common\DessertsMakery.Common.csproj" />
+      <ProjectReference Include="..\..\DessertsMakery.Persistence\DessertsMakery.Persistence.csproj" />
       <ProjectReference Include="..\DessertsMakery.Telegram.Application\DessertsMakery.Telegram.Application.csproj" />
     </ItemGroup>
 

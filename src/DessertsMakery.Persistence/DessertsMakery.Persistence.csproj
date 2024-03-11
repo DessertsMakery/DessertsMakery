@@ -107,6 +107,12 @@
       <Compile Update="Models\Essentials\ComponentMeasuringConversionConfiguration.cs">
         <DependentUpon>ComponentMeasuringConversion.cs</DependentUpon>
       </Compile>
+      <Compile Update="Models\Telegram\TelegramModeratorConfiguration.cs">
+        <DependentUpon>TelegramModerator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Models\Telegram\TelegramModeratorMenuStateConfiguration.cs">
+        <DependentUpon>TelegramModeratorMenuState.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

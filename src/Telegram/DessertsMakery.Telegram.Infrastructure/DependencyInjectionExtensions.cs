@@ -1,4 +1,5 @@
 ﻿using DessertsMakery.Common;
+using DessertsMakery.Persistence;
 using DessertsMakery.Telegram.Application.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ public static class DependencyInjectionExtensions
     {
         services.TryAddTransient<IUpdatePayloadMapper, UpdatePayloadMapper>();
         return services
+            .AddPersistence(configuration)
             .TryAddAuthenticator()
             .AddTelegramOptions(configuration)
             .TryAddTelegramBotListener()
@@ -26,8 +28,8 @@ public static class DependencyInjectionExtensions
     private static IServiceCollection TryAddAuthenticator(this IServiceCollection services)
     {
         services.TryAddSingleton<ITelegramAuthenticator, TelegramAuthenticator>();
-        services.TryAddSingleton<IUserAccessor>(provider =>
-            (IUserAccessor)provider.GetRequiredService<ITelegramAuthenticator>()
+        services.TryAddSingleton<ITelegramUserAccessor>(provider =>
+            (ITelegramUserAccessor)provider.GetRequiredService<ITelegramAuthenticator>()
         );
         return services;
     }

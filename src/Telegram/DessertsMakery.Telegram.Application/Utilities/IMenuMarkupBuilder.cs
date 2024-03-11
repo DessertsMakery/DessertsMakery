@@ -4,5 +4,5 @@ namespace DessertsMakery.Telegram.Application.Utilities;
 
 internal interface IMenuMarkupBuilder
 {
-    IReplyMarkup Build();
+    Task<IReplyMarkup> BuildAsync(CancellationToken token);
 }

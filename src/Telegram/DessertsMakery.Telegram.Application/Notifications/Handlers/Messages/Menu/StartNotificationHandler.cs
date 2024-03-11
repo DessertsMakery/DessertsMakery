@@ -1,7 +1,8 @@
-﻿using DessertsMakery.Telegram.Application.Utilities;
+﻿using DessertsMakery.Telegram.Application.Notifications.Handlers.Messages.Core;
+using DessertsMakery.Telegram.Application.Utilities;
 using Telegram.Bot;
 
-namespace DessertsMakery.Telegram.Application.Notifications.Handlers.Messages;
+namespace DessertsMakery.Telegram.Application.Notifications.Handlers.Messages.Menu;
 
 internal sealed class StartNotificationHandler : TextCommandTelegramNotificationHandler
 {
@@ -15,10 +16,10 @@ internal sealed class StartNotificationHandler : TextCommandTelegramNotification
         _menuMarkupBuilder = menuMarkupBuilder;
     }
 
-    protected override Task HandleAsync(CancellationToken cancellationToken)
+    protected override async Task HandleAsync(CancellationToken cancellationToken)
     {
-        var markup = _menuMarkupBuilder.Build();
-        return Client.SendTextMessageAsync(
+        var markup = await _menuMarkupBuilder.BuildAsync(cancellationToken);
+        await Client.SendTextMessageAsync(
             Chat,
             StartCommand,
             replyMarkup: markup,

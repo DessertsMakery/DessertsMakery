@@ -3,7 +3,7 @@ using Telegram.Bot.Types;
 
 namespace DessertsMakery.Telegram.Application.Users;
 
-public interface IUserAccessor
+public interface ITelegramUserAccessor
 {
-    Maybe<User> User { get; }
+    Maybe<User> TelegramUser { get; }
 }

@@ -29,18 +29,22 @@ internal sealed class TelegramUpdateHandler : IUpdateHandler
         _logger = logger;
     }
 
-    public Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    public async Task HandleUpdateAsync(
+        ITelegramBotClient botClient,
+        Update update,
+        CancellationToken cancellationToken
+    )
     {
         _logger.LogInformation("{Id}, {Type}, {Message}", update.Id, update.Type, update.Message!.Text);
         var payload = _updatePayloadMapper.Map(update);
-        if (!_telegramAuthenticator.IsAuthenticated(payload))
+        if (!await _telegramAuthenticator.IsAuthenticatedAsync(payload, cancellationToken))
         {
-            return Task.CompletedTask;
+            return;
         }
 
         var notificationType = OpenGenericNotification.MakeGenericType(payload.GetType());
         var notification = Activator.CreateInstance(notificationType, botClient, update.Id, update.Type, payload)!;
-        return _mediator.Publish(notification, cancellationToken);
+        await _mediator.Publish(notification, cancellationToken);
     }
 
     public Task HandlePollingErrorAsync(

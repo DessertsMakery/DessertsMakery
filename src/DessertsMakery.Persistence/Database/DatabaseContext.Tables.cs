@@ -6,6 +6,7 @@ using DessertsMakery.Persistence.Models.Essentials;
 using DessertsMakery.Persistence.Models.Orders;
 using DessertsMakery.Persistence.Models.Purchases;
 using DessertsMakery.Persistence.Models.Recipes;
+using DessertsMakery.Persistence.Models.Telegram;
 using Microsoft.EntityFrameworkCore;
 
 namespace DessertsMakery.Persistence.Database;
@@ -49,5 +50,8 @@ internal sealed partial class DatabaseContext : IDatabase
     public DbSet<RecipeDescriptionItem> RecipeDescriptionItems { get; set; }
     public DbSet<RecipeDescriptionItemType> RecipeDescriptionItemTypes { get; set; }
     public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+
+    public DbSet<TelegramModerator> TelegramModerators { get; set; }
+    public DbSet<TelegramModeratorMenuState> TelegramModeratorMenuStates { get; set; }
 #nullable enable
 }
