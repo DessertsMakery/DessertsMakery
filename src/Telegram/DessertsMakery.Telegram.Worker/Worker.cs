@@ -4,15 +4,17 @@ namespace DessertsMakery.Telegram.Worker;
 
 public class Worker : BackgroundService
 {
-    private readonly ITelegramBotListener _telegramBotListener;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public Worker(ITelegramBotListener telegramBotListener)
+    public Worker(IServiceScopeFactory serviceScopeFactory)
     {
-        _telegramBotListener = telegramBotListener;
+        _serviceScopeFactory = serviceScopeFactory;
     }
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        return _telegramBotListener.ReceiveAsync(stoppingToken);
+        await using var scope = _serviceScopeFactory.CreateAsyncScope();
+        var listener = scope.ServiceProvider.GetRequiredService<ITelegramBotListener>();
+        await listener.ReceiveAsync(stoppingToken);
     }
 }

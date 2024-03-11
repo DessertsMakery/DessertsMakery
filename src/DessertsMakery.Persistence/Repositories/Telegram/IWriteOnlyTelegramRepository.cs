@@ -2,5 +2,5 @@
 
 public interface IWriteOnlyTelegramRepository
 {
-    Task UpdateMenuStateAsync(string username, string state, CancellationToken token);
+    Task CreateOrUpdateMenuStateAsync(string username, string state, CancellationToken token);
 }

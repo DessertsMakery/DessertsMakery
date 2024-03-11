@@ -27,8 +27,8 @@ public static class DependencyInjectionExtensions
 
     private static IServiceCollection TryAddAuthenticator(this IServiceCollection services)
     {
-        services.TryAddSingleton<ITelegramAuthenticator, TelegramAuthenticator>();
-        services.TryAddSingleton<ITelegramUserAccessor>(provider =>
+        services.TryAddScoped<ITelegramAuthenticator, TelegramAuthenticator>();
+        services.TryAddScoped<ITelegramUserAccessor>(provider =>
             (ITelegramUserAccessor)provider.GetRequiredService<ITelegramAuthenticator>()
         );
         return services;
@@ -46,8 +46,8 @@ public static class DependencyInjectionExtensions
     private static IServiceCollection TryAddTelegramBotListener(this IServiceCollection services)
     {
         services.AddHttpClient<TelegramBotListener>();
-        services.TryAddSingleton<TelegramUpdateHandler>();
-        services.TryAddSingleton<ITelegramBotListener, TelegramBotListener>();
+        services.TryAddScoped<TelegramUpdateHandler>();
+        services.TryAddScoped<ITelegramBotListener, TelegramBotListener>();
         return services;
     }
 

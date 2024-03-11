@@ -7,7 +7,7 @@ public static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddTelegramUsers(this IServiceCollection services)
     {
-        services.TryAddSingleton<ITelegramModeratorMenuState, TelegramModeratorMenuState>();
+        services.TryAddScoped<ITelegramModeratorMenuState, TelegramModeratorMenuState>();
         services.TryDecorate<ITelegramModeratorMenuState, TelegramModeratorMenuStateCacheProxy>();
         return services.AddMemoryCache();
     }

@@ -36,7 +36,7 @@ internal sealed class TelegramModeratorMenuState : ITelegramModeratorMenuState
         async Task<Breadcrumbs> CreateNewFor(string username)
         {
             var breadcrumbs = factory();
-            await _telegramRepository.UpdateMenuStateAsync(username, breadcrumbs.ToString(), token);
+            await _telegramRepository.CreateOrUpdateMenuStateAsync(username, breadcrumbs.ToString(), token);
             return breadcrumbs;
         }
     }
