@@ -1,5 +1,6 @@
 ﻿using DessertsMakery.Common;
-using DessertsMakery.Telegram.Application.Users;
+using DessertsMakery.Persistence;
+using DessertsMakery.Telegram.Application.Menu;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -17,6 +18,7 @@ public static class DependencyInjectionExtensions
     {
         services.TryAddTransient<IUpdatePayloadMapper, UpdatePayloadMapper>();
         return services
+            .AddPersistence(configuration)
             .TryAddAuthenticator()
             .AddTelegramOptions(configuration)
             .TryAddTelegramBotListener()
@@ -25,9 +27,9 @@ public static class DependencyInjectionExtensions
 
     private static IServiceCollection TryAddAuthenticator(this IServiceCollection services)
     {
-        services.TryAddSingleton<ITelegramAuthenticator, TelegramAuthenticator>();
-        services.TryAddSingleton<IUserAccessor>(provider =>
-            (IUserAccessor)provider.GetRequiredService<ITelegramAuthenticator>()
+        services.TryAddScoped<ITelegramAuthenticator, TelegramAuthenticator>();
+        services.TryAddScoped<ITelegramUserAccessor>(provider =>
+            (ITelegramUserAccessor)provider.GetRequiredService<ITelegramAuthenticator>()
         );
         return services;
     }
@@ -44,8 +46,8 @@ public static class DependencyInjectionExtensions
     private static IServiceCollection TryAddTelegramBotListener(this IServiceCollection services)
     {
         services.AddHttpClient<TelegramBotListener>();
-        services.TryAddSingleton<TelegramUpdateHandler>();
-        services.TryAddSingleton<ITelegramBotListener, TelegramBotListener>();
+        services.TryAddScoped<TelegramUpdateHandler>();
+        services.TryAddScoped<ITelegramBotListener, TelegramBotListener>();
         return services;
     }
 

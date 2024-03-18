@@ -1,6 +1,0 @@
-﻿namespace DessertsMakery.Telegram.Application.Users;
-
-public sealed class UserConfiguration
-{
-    public string[]? AllowedUsernames { get; set; }
-}

@@ -2,5 +2,5 @@
 
 internal interface ITelegramAuthenticator
 {
-    bool IsAuthenticated(object payload);
+    Task<bool> IsAuthenticatedAsync(object payload, CancellationToken token);
 }

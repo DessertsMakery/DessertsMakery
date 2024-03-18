@@ -1,6 +1,6 @@
 ﻿using Telegram.Bot.Types.Enums;
 
-namespace DessertsMakery.Telegram.Application.Notifications.Handlers.Messages;
+namespace DessertsMakery.Telegram.Application.Notifications.Handlers.Messages.Core;
 
 internal abstract class TextCommandTelegramNotificationHandler : MessageTelegramNotificationHandler
 {

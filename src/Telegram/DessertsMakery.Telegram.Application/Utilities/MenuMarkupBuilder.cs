@@ -1,27 +1,20 @@
 ﻿using DessertsMakery.Telegram.Application.Menu;
-using DessertsMakery.Telegram.Application.Users;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace DessertsMakery.Telegram.Application.Utilities;
 
 internal sealed class MenuMarkupBuilder : IMenuMarkupBuilder
 {
-    private readonly IUserMenuState _userMenuState;
     private readonly IMenuRoot _menuRoot;
 
-    public MenuMarkupBuilder(IUserMenuState userMenuState, IMenuRoot menuRoot)
+    public MenuMarkupBuilder(IMenuRoot menuRoot)
     {
-        _userMenuState = userMenuState;
         _menuRoot = menuRoot;
     }
 
-    public IReplyMarkup Build()
+    public IReplyMarkup Build(IMenuSection section)
     {
-        var breadcrumbs = _userMenuState
-            .TryGetOrSet(() => Breadcrumbs.Empty(_menuRoot))
-            .GetValueOrThrow("Cannot build menu when no breadcrumbs");
-
-        var buttons = GetButtons(breadcrumbs.Current);
+        var buttons = GetButtons(section);
         return new ReplyKeyboardMarkup(buttons) { ResizeKeyboard = true, IsPersistent = true };
     }
 

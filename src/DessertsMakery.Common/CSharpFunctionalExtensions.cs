@@ -13,4 +13,16 @@ public static class CSharpFunctionalExtensions
 
         return maybe;
     }
+
+    public static async Task<Maybe<T>> Tap<T>(this Maybe<T> maybe, Func<T, Task> action)
+    {
+        if (maybe.HasValue)
+        {
+            await action(maybe.Value);
+        }
+
+        return maybe;
+    }
+
+    public static async Task<Maybe<T>> Tap<T>(this Task<Maybe<T>> task, Action<T> action) => (await task).Tap(action);
 }

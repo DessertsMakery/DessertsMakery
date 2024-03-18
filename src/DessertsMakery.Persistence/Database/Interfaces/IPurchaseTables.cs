@@ -5,6 +5,6 @@ namespace DessertsMakery.Persistence.Database.Interfaces;
 
 public interface IPurchaseTables : ITables
 {
-    DbSet<Purchase> Purchases { get; set; }
-    DbSet<PurchaseItem> PurchaseItems { get; set; }
+    DbSet<Purchase> Purchases { get; }
+    DbSet<PurchaseItem> PurchaseItems { get; }
 }

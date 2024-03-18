@@ -1,26 +1,26 @@
 ﻿using CSharpFunctionalExtensions;
-using DessertsMakery.Telegram.Application.Users;
+using DessertsMakery.Persistence.Repositories.Telegram;
+using DessertsMakery.Telegram.Application.Menu;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Payments;
 
 namespace DessertsMakery.Telegram.Infrastructure;
 
-internal sealed class TelegramAuthenticator : ITelegramAuthenticator, IUserAccessor
+internal sealed class TelegramAuthenticator : ITelegramAuthenticator, ITelegramUserAccessor
 {
-    private readonly IOptionsSnapshot<UserConfiguration> _options;
+    private readonly IReadOnlyTelegramRepository _telegramRepository;
     private readonly ILogger<TelegramAuthenticator> _logger;
 
-    public Maybe<User> User { get; private set; }
+    public Maybe<User> TelegramUser { get; private set; }
 
-    public TelegramAuthenticator(IOptionsSnapshot<UserConfiguration> options, ILogger<TelegramAuthenticator> logger)
+    public TelegramAuthenticator(IReadOnlyTelegramRepository telegramRepository, ILogger<TelegramAuthenticator> logger)
     {
-        _options = options;
+        _telegramRepository = telegramRepository;
         _logger = logger;
     }
 
-    public bool IsAuthenticated(object payload)
+    public async Task<bool> IsAuthenticatedAsync(object payload, CancellationToken token)
     {
         var username = TryGetUsername(payload);
         if (string.IsNullOrWhiteSpace(username))
@@ -29,7 +29,7 @@ internal sealed class TelegramAuthenticator : ITelegramAuthenticator, IUserAcces
             return false;
         }
 
-        var isAuthenticated = _options.Value.AllowedUsernames?.Contains(username) == true;
+        var isAuthenticated = await _telegramRepository.ModeratorExistsAsync(username, token);
         if (!isAuthenticated)
         {
             _logger.LogWarning("Username `{Username}` is not whitelisted", username);
@@ -54,7 +54,7 @@ internal sealed class TelegramAuthenticator : ITelegramAuthenticator, IUserAcces
             ChatJoinRequest chatJoinRequest => chatJoinRequest.From,
             _ => throw new ArgumentOutOfRangeException(nameof(payload), payload, null)
         };
-        User = user!;
+        TelegramUser = user!;
         return user?.Username;
     }
 }

@@ -7,7 +7,7 @@ var builder = Host.CreateApplicationBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
 builder
     .Services.AddPersistence(builder.Configuration)
-    .AddTelegramApplication(builder.Configuration)
+    .AddTelegramApplication()
     .AddTelegramInfrastructure(builder.Configuration)
     .AddHostedService<Worker>();
 

@@ -4,25 +4,26 @@ namespace DessertsMakery.Telegram.Application.Menu;
 
 public sealed class Breadcrumbs
 {
+    private const int StartingLevel = 1;
     private const char Separator = ':';
 
-    private readonly Stack<IMenuSection> _sections = new();
+    private readonly List<IMenuSection> _sections = new();
     public IReadOnlyCollection<IMenuSection> Sections => _sections;
 
-    public IMenuSection Current => _sections.Peek();
+    public IMenuSection Current => _sections.Last();
 
-    private Breadcrumbs(IMenuSection root) => _sections.Push(root);
+    private Breadcrumbs(IMenuSection root) => _sections.Add(root);
 
     public Breadcrumbs GoTo(string name)
     {
         var section = Current.TryFindChild(name).GetValueOrThrow($"Cannot find a section with the name `{name}`");
-        _sections.Push(section);
+        _sections.Add(section);
         return this;
     }
 
     public Breadcrumbs Back()
     {
-        _sections.Pop();
+        _sections.RemoveAt(_sections.Count - 1);
         return this;
     }
 
@@ -34,12 +35,17 @@ public sealed class Breadcrumbs
     {
         if (string.IsNullOrWhiteSpace(source))
         {
+            return Maybe.None;
+        }
+
+        if (root.Name == source)
+        {
             return Empty(root);
         }
 
-        var breadcrumbs = source.Split(Separator);
+        var breadcrumbs = TrySplitToBreadcrumbs(root, source);
 
-        var level = 0;
+        var level = StartingLevel;
         IMenuParent current = root;
         while (level < breadcrumbs.Length)
         {
@@ -57,13 +63,24 @@ public sealed class Breadcrumbs
         return From(root, (IMenuSection)current);
     }
 
+    private static string[] TrySplitToBreadcrumbs(IMenuSection root, string source)
+    {
+        var breadcrumbs = source.Split(Separator);
+        if (breadcrumbs.First() != root.Name)
+        {
+            throw new InvalidOperationException($"First element should always be `{root.Name}`");
+        }
+
+        return breadcrumbs;
+    }
+
     private static Breadcrumbs From(IMenuRoot root, IMenuSection section)
     {
         var breadcrumbs = Empty(root);
         var current = section;
         while (current.Parent is not null)
         {
-            breadcrumbs._sections.Push(current);
+            breadcrumbs._sections.Insert(StartingLevel, current);
             current = current.Parent;
         }
 

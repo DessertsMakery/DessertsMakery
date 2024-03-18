@@ -1,0 +1,60 @@
+﻿using CSharpFunctionalExtensions;
+using DessertsMakery.Persistence.Repositories.Telegram;
+using DessertsMakery.Telegram.Application.Menu;
+using DessertsMakery.Telegram.Application.Notifications.Handlers.Messages.Core;
+using DessertsMakery.Telegram.Application.Utilities;
+using Telegram.Bot;
+
+namespace DessertsMakery.Telegram.Application.Notifications.Handlers.Messages.Menu;
+
+internal sealed class MenuBackSelectedNotificationHandler : MessageTelegramNotificationHandler
+{
+    private readonly IReadWriteTelegramRepository _telegramRepository;
+    private readonly ITelegramUserAccessor _telegramUserAccessor;
+    private readonly IMenuRoot _menuRoot;
+    private readonly IMenuMarkupBuilder _menuMarkupBuilder;
+
+    private string? _username;
+    private Breadcrumbs? _breadcrumbs;
+
+    public MenuBackSelectedNotificationHandler(
+        IReadWriteTelegramRepository telegramRepository,
+        ITelegramUserAccessor telegramUserAccessor,
+        IMenuRoot menuRoot,
+        IMenuMarkupBuilder menuMarkupBuilder
+    )
+    {
+        _telegramRepository = telegramRepository;
+        _telegramUserAccessor = telegramUserAccessor;
+        _menuRoot = menuRoot;
+        _menuMarkupBuilder = menuMarkupBuilder;
+    }
+
+    protected override async Task<bool> CanHandleAsync(CancellationToken cancellationToken)
+    {
+        if (!MenuSectionNames.Common.Back.Equals(Message.Text, StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        _username = _telegramUserAccessor.TelegramUser.Map(x => x.Username).GetValueOrThrow("Cannot get username")!;
+        var state = await _telegramRepository.GetMenuStateAsync(_username, cancellationToken);
+        _breadcrumbs = Breadcrumbs.TryFrom(_menuRoot, state).GetValueOrThrow($"Cannot parse {state} to breadcrumbs");
+        return _breadcrumbs.Current.Parent is not null;
+    }
+
+    protected override async Task HandleAsync(CancellationToken cancellationToken)
+    {
+        var breadcrumbs = _breadcrumbs!.Back();
+        await _telegramRepository.CreateOrUpdateMenuStateAsync(_username!, breadcrumbs.ToString(), cancellationToken);
+
+        var section = breadcrumbs.Current;
+        var markup = _menuMarkupBuilder.Build(section);
+        await Client.SendTextMessageAsync(
+            Chat,
+            section.Name,
+            replyMarkup: markup,
+            cancellationToken: cancellationToken
+        );
+    }
+}

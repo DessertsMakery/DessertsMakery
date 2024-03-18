@@ -5,9 +5,9 @@ namespace DessertsMakery.Persistence.Database.Interfaces;
 
 public interface IEssentialTables : ITables
 {
-    DbSet<Addition> Additions { get; set; }
-    DbSet<Component> Components { get; set; }
-    public DbSet<Ingredient> Ingredients { get; set; }
-    DbSet<Measuring> Measurings { get; set; }
-    DbSet<PackagingComponent> PackagingComponents { get; set; }
+    DbSet<Addition> Additions { get; }
+    DbSet<Component> Components { get; }
+    DbSet<Ingredient> Ingredients { get; }
+    DbSet<Measuring> Measurings { get; }
+    DbSet<PackagingComponent> PackagingComponents { get; }
 }
