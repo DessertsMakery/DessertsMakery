@@ -27,7 +27,7 @@ internal sealed class ReadWriteTelegramRepository : IReadWriteTelegramRepository
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(username);
         return _telegramTables.TelegramModerators.AnyAsync(
-            moderator => username.Equals(moderator.Username, StringComparison.OrdinalIgnoreCase),
+            moderator => username == moderator.Username,
             cancellationToken: token
         );
     }
@@ -37,13 +37,10 @@ internal sealed class ReadWriteTelegramRepository : IReadWriteTelegramRepository
         ArgumentException.ThrowIfNullOrWhiteSpace(username);
 
         var entity = await _telegramTables
-            .TelegramModeratorMenuStates.Include(x => x.TelegramModerator)
-            .FirstAsync(
-                x => username.Equals(x.TelegramModerator.Username, StringComparison.OrdinalIgnoreCase),
-                cancellationToken: token
-            );
+            .TelegramModerators.Include(x => x.TelegramModeratorMenuState)
+            .FirstAsync(x => username == x.Username, cancellationToken: token);
 
-        return entity.MenuState!;
+        return entity.TelegramModeratorMenuState?.MenuState;
     }
 
     public async Task CreateOrUpdateMenuStateAsync(string username, string state, CancellationToken token)
@@ -53,7 +50,7 @@ internal sealed class ReadWriteTelegramRepository : IReadWriteTelegramRepository
 
         var moderator = await _telegramTables
             .TelegramModerators.Include(x => x.TelegramModeratorMenuState)
-            .FirstAsync(x => username.Equals(x.Username, StringComparison.OrdinalIgnoreCase), cancellationToken: token);
+            .FirstAsync(x => username == x.Username, cancellationToken: token);
 
         if (moderator.TelegramModeratorMenuState is null)
         {

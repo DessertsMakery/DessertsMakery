@@ -1,8 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
-using DessertsMakery.Common;
+using DessertsMakery.Persistence.Repositories.Telegram;
 using DessertsMakery.Telegram.Application.Menu;
 using DessertsMakery.Telegram.Application.Notifications.Handlers.Messages.Core;
-using DessertsMakery.Telegram.Application.Users;
 using DessertsMakery.Telegram.Application.Utilities;
 using Telegram.Bot;
 
@@ -10,36 +9,45 @@ namespace DessertsMakery.Telegram.Application.Notifications.Handlers.Messages.Me
 
 internal sealed class MenuSectionSelectedNotificationHandler : MessageTelegramNotificationHandler
 {
-    private readonly ITelegramModeratorMenuState _telegramModeratorMenuState;
+    private readonly IReadWriteTelegramRepository _telegramRepository;
+    private readonly ITelegramUserAccessor _telegramUserAccessor;
+    private readonly IMenuRoot _menuRoot;
     private readonly IMenuMarkupBuilder _menuMarkupBuilder;
 
+    private string? _username;
+    private Breadcrumbs? _breadcrumbs;
+
     public MenuSectionSelectedNotificationHandler(
-        ITelegramModeratorMenuState telegramModeratorMenuState,
+        IReadWriteTelegramRepository telegramRepository,
+        ITelegramUserAccessor telegramUserAccessor,
+        IMenuRoot menuRoot,
         IMenuMarkupBuilder menuMarkupBuilder
     )
     {
-        _telegramModeratorMenuState = telegramModeratorMenuState;
+        _telegramRepository = telegramRepository;
+        _telegramUserAccessor = telegramUserAccessor;
+        _menuRoot = menuRoot;
         _menuMarkupBuilder = menuMarkupBuilder;
     }
 
     protected override async Task<bool> CanHandleAsync(CancellationToken cancellationToken)
     {
-        var child = await _telegramModeratorMenuState
-            .TryGetAsync(cancellationToken)
-            .Bind(x => x.Current.TryFindChild(Message.Text!));
-
-        return child.HasValue;
+        _username = _telegramUserAccessor.TelegramUser.Map(x => x.Username).GetValueOrThrow("Cannot get username")!;
+        var state = await _telegramRepository.GetMenuStateAsync(_username, cancellationToken);
+        _breadcrumbs = Breadcrumbs.TryFrom(_menuRoot, state).GetValueOrThrow($"Cannot parse {state} to breadcrumbs");
+        return _breadcrumbs.Current.TryFindChild(Message.Text!).HasValue;
     }
 
     protected override async Task HandleAsync(CancellationToken cancellationToken)
     {
-        var breadcrumbs = await _telegramModeratorMenuState
-            .TryUpdateAsync(breadcrumbs => breadcrumbs.GoTo(Message.Text!), cancellationToken)
-            .GetValueOrThrow($"Cannot find a breadcrumbs for `{From.Username}`");
-        var markup = await _menuMarkupBuilder.BuildAsync(cancellationToken);
+        var breadcrumbs = _breadcrumbs!.GoTo(Message.Text!);
+        await _telegramRepository.CreateOrUpdateMenuStateAsync(_username!, breadcrumbs.ToString(), cancellationToken);
+
+        var section = breadcrumbs.Current;
+        var markup = _menuMarkupBuilder.Build(section);
         await Client.SendTextMessageAsync(
             Chat,
-            breadcrumbs.Current.Name,
+            section.Name,
             replyMarkup: markup,
             cancellationToken: cancellationToken
         );

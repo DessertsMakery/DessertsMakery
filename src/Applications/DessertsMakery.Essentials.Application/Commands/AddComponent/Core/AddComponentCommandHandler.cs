@@ -1,6 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
 using DessertsMakery.Application.Core.Services.WordSimilarity;
-using DessertsMakery.Persistence.Database.Interfaces;
 using DessertsMakery.Persistence.Models.Essentials;
 using DessertsMakery.Persistence.Repositories.Components;
 using MediatR;
@@ -14,18 +13,15 @@ internal abstract class AddComponentCommandHandler<TRequest, TComponent>
     where TComponent : Component
 {
     private readonly IWordSimilarityChecker _wordSimilarityChecker;
-    private readonly IUnitOfWork _unitOfWork;
 
     protected IReadWriteComponentRepository ComponentRepository { get; }
 
     protected AddComponentCommandHandler(
         IWordSimilarityChecker wordSimilarityChecker,
-        IReadWriteComponentRepository componentRepository,
-        IUnitOfWork unitOfWork
+        IReadWriteComponentRepository componentRepository
     )
     {
         _wordSimilarityChecker = wordSimilarityChecker;
-        _unitOfWork = unitOfWork;
         ComponentRepository = componentRepository;
     }
 
@@ -43,7 +39,6 @@ internal abstract class AddComponentCommandHandler<TRequest, TComponent>
 
         var component = await ComponentFromAsync(request, cancellationToken);
         var created = await ComponentRepository.CreateAsync(component, cancellationToken);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
         return created;
     }
 

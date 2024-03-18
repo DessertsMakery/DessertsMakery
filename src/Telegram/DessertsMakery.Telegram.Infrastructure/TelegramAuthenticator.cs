@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using DessertsMakery.Persistence.Repositories.Telegram;
-using DessertsMakery.Telegram.Application.Users;
+using DessertsMakery.Telegram.Application.Menu;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Payments;

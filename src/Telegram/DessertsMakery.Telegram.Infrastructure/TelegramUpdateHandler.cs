@@ -1,4 +1,5 @@
-﻿using DessertsMakery.Telegram.Application.Notifications;
+﻿using DessertsMakery.Persistence.Database.Interfaces;
+using DessertsMakery.Telegram.Application.Notifications;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
@@ -14,18 +15,21 @@ internal sealed class TelegramUpdateHandler : IUpdateHandler
     private readonly ITelegramAuthenticator _telegramAuthenticator;
     private readonly IUpdatePayloadMapper _updatePayloadMapper;
     private readonly IMediator _mediator;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<TelegramUpdateHandler> _logger;
 
     public TelegramUpdateHandler(
         ITelegramAuthenticator telegramAuthenticator,
         IUpdatePayloadMapper updatePayloadMapper,
         IMediator mediator,
+        IUnitOfWork unitOfWork,
         ILogger<TelegramUpdateHandler> logger
     )
     {
         _telegramAuthenticator = telegramAuthenticator;
         _updatePayloadMapper = updatePayloadMapper;
         _mediator = mediator;
+        _unitOfWork = unitOfWork;
         _logger = logger;
     }
 
@@ -45,6 +49,7 @@ internal sealed class TelegramUpdateHandler : IUpdateHandler
         var notificationType = OpenGenericNotification.MakeGenericType(payload.GetType());
         var notification = Activator.CreateInstance(notificationType, botClient, update.Id, update.Type, payload)!;
         await _mediator.Publish(notification, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 
     public Task HandlePollingErrorAsync(

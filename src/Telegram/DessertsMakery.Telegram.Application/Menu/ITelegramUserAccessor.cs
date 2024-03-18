@@ -1,7 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Telegram.Bot.Types;
 
-namespace DessertsMakery.Telegram.Application.Users;
+namespace DessertsMakery.Telegram.Application.Menu;
 
 public interface ITelegramUserAccessor
 {

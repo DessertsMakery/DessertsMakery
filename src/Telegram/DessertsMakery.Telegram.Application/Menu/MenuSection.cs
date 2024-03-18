@@ -1,7 +1,9 @@
-﻿using CSharpFunctionalExtensions;
+﻿using System.Diagnostics;
+using CSharpFunctionalExtensions;
 
 namespace DessertsMakery.Telegram.Application.Menu;
 
+[DebuggerDisplay("{Name}")]
 internal sealed class MenuSection : IMenuSection
 {
     private readonly List<MenuSection> _children = new();

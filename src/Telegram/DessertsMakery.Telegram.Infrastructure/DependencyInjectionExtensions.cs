@@ -1,6 +1,6 @@
 ﻿using DessertsMakery.Common;
 using DessertsMakery.Persistence;
-using DessertsMakery.Telegram.Application.Users;
+using DessertsMakery.Telegram.Application.Menu;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
