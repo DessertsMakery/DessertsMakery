@@ -52,6 +52,6 @@ internal sealed partial class DatabaseContext : IDatabase
     public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 
     public DbSet<TelegramModerator> TelegramModerators { get; set; }
-    public DbSet<TelegramModeratorMenuState> TelegramModeratorMenuStates { get; set; }
+    public DbSet<TelegramModeratorState> TelegramModeratorStates { get; set; }
 #nullable enable
 }

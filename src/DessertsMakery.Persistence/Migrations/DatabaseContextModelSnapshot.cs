@@ -604,19 +604,19 @@ namespace DessertsMakery.Persistence.Migrations
                         new
                         {
                             InternalId = 2L,
-                            CreatedAt = new DateTime(2024, 3, 11, 17, 15, 52, 488, DateTimeKind.Utc).AddTicks(7926),
-                            ExternalId = new Guid("f9333d32-f13d-40ab-8310-ac751f6317bb"),
+                            CreatedAt = new DateTime(2024, 3, 19, 8, 19, 28, 625, DateTimeKind.Utc).AddTicks(2236),
+                            ExternalId = new Guid("59f56050-6ad6-4319-ab48-f754bd595bdc"),
                             IsDeleted = false,
-                            ModifiedAt = new DateTime(2024, 3, 11, 17, 15, 52, 488, DateTimeKind.Utc).AddTicks(7926),
+                            ModifiedAt = new DateTime(2024, 3, 19, 8, 19, 28, 625, DateTimeKind.Utc).AddTicks(2236),
                             Name = "Mass"
                         },
                         new
                         {
                             InternalId = 1L,
-                            CreatedAt = new DateTime(2024, 3, 11, 17, 15, 52, 488, DateTimeKind.Utc).AddTicks(7930),
-                            ExternalId = new Guid("26ecbd9a-727d-4de7-bbc6-45d060a27efa"),
+                            CreatedAt = new DateTime(2024, 3, 19, 8, 19, 28, 625, DateTimeKind.Utc).AddTicks(2241),
+                            ExternalId = new Guid("44e20708-937f-4b3a-9a30-9bd0e14314e0"),
                             IsDeleted = false,
-                            ModifiedAt = new DateTime(2024, 3, 11, 17, 15, 52, 488, DateTimeKind.Utc).AddTicks(7930),
+                            ModifiedAt = new DateTime(2024, 3, 19, 8, 19, 28, 625, DateTimeKind.Utc).AddTicks(2241),
                             Name = "Quantity"
                         });
                 });
@@ -1252,7 +1252,7 @@ namespace DessertsMakery.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("TelegramModeratorMenuStateId")
+                    b.Property<long?>("TelegramModeratorStateId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Username")
@@ -1265,13 +1265,13 @@ namespace DessertsMakery.Persistence.Migrations
                     b.HasIndex("ExternalId")
                         .IsUnique();
 
-                    b.HasIndex("TelegramModeratorMenuStateId")
+                    b.HasIndex("TelegramModeratorStateId")
                         .IsUnique();
 
                     b.ToTable("TelegramModerators");
                 });
 
-            modelBuilder.Entity("DessertsMakery.Persistence.Models.Telegram.TelegramModeratorMenuState", b =>
+            modelBuilder.Entity("DessertsMakery.Persistence.Models.Telegram.TelegramModeratorState", b =>
                 {
                     b.Property<long>("InternalId")
                         .ValueGeneratedOnAdd()
@@ -1296,12 +1296,15 @@ namespace DessertsMakery.Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasDefaultValueSql("DATE('now')");
 
+                    b.Property<string>("OperationState")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("InternalId");
 
                     b.HasIndex("ExternalId")
                         .IsUnique();
 
-                    b.ToTable("TelegramModeratorMenuStates");
+                    b.ToTable("TelegramModeratorStates");
                 });
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Essentials.Addition", b =>
@@ -1690,11 +1693,11 @@ namespace DessertsMakery.Persistence.Migrations
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Telegram.TelegramModerator", b =>
                 {
-                    b.HasOne("DessertsMakery.Persistence.Models.Telegram.TelegramModeratorMenuState", "TelegramModeratorMenuState")
+                    b.HasOne("DessertsMakery.Persistence.Models.Telegram.TelegramModeratorState", "TelegramModeratorState")
                         .WithOne("TelegramModerator")
-                        .HasForeignKey("DessertsMakery.Persistence.Models.Telegram.TelegramModerator", "TelegramModeratorMenuStateId");
+                        .HasForeignKey("DessertsMakery.Persistence.Models.Telegram.TelegramModerator", "TelegramModeratorStateId");
 
-                    b.Navigation("TelegramModeratorMenuState");
+                    b.Navigation("TelegramModeratorState");
                 });
 
             modelBuilder.Entity("DessertsMakery.Persistence.Models.Consumables.Consumable", b =>
@@ -1817,7 +1820,7 @@ namespace DessertsMakery.Persistence.Migrations
                     b.Navigation("RecipeDescriptionItems");
                 });
 
-            modelBuilder.Entity("DessertsMakery.Persistence.Models.Telegram.TelegramModeratorMenuState", b =>
+            modelBuilder.Entity("DessertsMakery.Persistence.Models.Telegram.TelegramModeratorState", b =>
                 {
                     b.Navigation("TelegramModerator")
                         .IsRequired();

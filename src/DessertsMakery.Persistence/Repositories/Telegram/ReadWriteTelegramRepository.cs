@@ -37,10 +37,10 @@ internal sealed class ReadWriteTelegramRepository : IReadWriteTelegramRepository
         ArgumentException.ThrowIfNullOrWhiteSpace(username);
 
         var entity = await _telegramTables
-            .TelegramModerators.Include(x => x.TelegramModeratorMenuState)
+            .TelegramModerators.Include(x => x.TelegramModeratorState)
             .FirstAsync(x => username == x.Username, cancellationToken: token);
 
-        return entity.TelegramModeratorMenuState?.MenuState;
+        return entity.TelegramModeratorState?.MenuState;
     }
 
     public async Task CreateOrUpdateMenuStateAsync(string username, string state, CancellationToken token)
@@ -49,36 +49,32 @@ internal sealed class ReadWriteTelegramRepository : IReadWriteTelegramRepository
         ArgumentException.ThrowIfNullOrWhiteSpace(state);
 
         var moderator = await _telegramTables
-            .TelegramModerators.Include(x => x.TelegramModeratorMenuState)
+            .TelegramModerators.Include(x => x.TelegramModeratorState)
             .FirstAsync(x => username == x.Username, cancellationToken: token);
 
-        if (moderator.TelegramModeratorMenuState is null)
+        if (moderator.TelegramModeratorState is null)
         {
-            await AddTelegramModeratorMenuState(moderator, state, token);
+            await AddTelegramModeratorState(moderator, state, token);
             return;
         }
 
-        UpdateTelegramModeratorMenuState(state, moderator);
+        UpdateTelegramModeratorState(state, moderator);
     }
 
     #region Helpers
 
-    private async Task AddTelegramModeratorMenuState(TelegramModerator moderator, string state, CancellationToken token)
+    private async Task AddTelegramModeratorState(TelegramModerator moderator, string state, CancellationToken token)
     {
-        var telegramModeratorMenuState = new TelegramModeratorMenuState
-        {
-            TelegramModerator = moderator,
-            MenuState = state
-        };
-        _entitySeeder.Seed(telegramModeratorMenuState);
-        await _telegramTables.TelegramModeratorMenuStates.AddAsync(telegramModeratorMenuState, token);
+        var telegramModeratorState = new TelegramModeratorState { TelegramModerator = moderator, MenuState = state };
+        _entitySeeder.Seed(telegramModeratorState);
+        await _telegramTables.TelegramModeratorStates.AddAsync(telegramModeratorState, token);
     }
 
-    private void UpdateTelegramModeratorMenuState(string state, TelegramModerator moderator)
+    private void UpdateTelegramModeratorState(string state, TelegramModerator moderator)
     {
-        moderator.TelegramModeratorMenuState!.MenuState = state;
-        moderator.TelegramModeratorMenuState.ModifiedAt = _dateTimeProvider.GetUtcNow();
-        _telegramTables.TelegramModeratorMenuStates.Update(moderator.TelegramModeratorMenuState);
+        moderator.TelegramModeratorState!.MenuState = state;
+        moderator.TelegramModeratorState.ModifiedAt = _dateTimeProvider.GetUtcNow();
+        _telegramTables.TelegramModeratorStates.Update(moderator.TelegramModeratorState);
     }
 
     #endregion
