@@ -20,4 +20,8 @@
       <ProjectReference Include="..\..\DessertsMakery.Persistence\DessertsMakery.Persistence.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Notifications\Handlers\Messages\Components\" />
+    </ItemGroup>
+
 </Project>

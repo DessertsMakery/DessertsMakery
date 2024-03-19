@@ -6,5 +6,5 @@ namespace DessertsMakery.Persistence.Database.Interfaces;
 public interface ITelegramTables : ITables
 {
     DbSet<TelegramModerator> TelegramModerators { get; }
-    DbSet<TelegramModeratorMenuState> TelegramModeratorMenuStates { get; }
+    DbSet<TelegramModeratorState> TelegramModeratorMenuStates { get; }
 }

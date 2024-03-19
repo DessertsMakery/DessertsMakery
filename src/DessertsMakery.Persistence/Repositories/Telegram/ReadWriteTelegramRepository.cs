@@ -65,13 +65,9 @@ internal sealed class ReadWriteTelegramRepository : IReadWriteTelegramRepository
 
     private async Task AddTelegramModeratorMenuState(TelegramModerator moderator, string state, CancellationToken token)
     {
-        var telegramModeratorMenuState = new TelegramModeratorMenuState
-        {
-            TelegramModerator = moderator,
-            MenuState = state
-        };
-        _entitySeeder.Seed(telegramModeratorMenuState);
-        await _telegramTables.TelegramModeratorMenuStates.AddAsync(telegramModeratorMenuState, token);
+        var telegramModeratorState = new TelegramModeratorState { TelegramModerator = moderator, MenuState = state };
+        _entitySeeder.Seed(telegramModeratorState);
+        await _telegramTables.TelegramModeratorMenuStates.AddAsync(telegramModeratorState, token);
     }
 
     private void UpdateTelegramModeratorMenuState(string state, TelegramModerator moderator)

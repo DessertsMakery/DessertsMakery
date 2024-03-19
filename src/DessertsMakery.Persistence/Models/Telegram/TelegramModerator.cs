@@ -6,5 +6,5 @@ public sealed class TelegramModerator : Entity
     public string Username { get; set; } = null!;
 
     public long? TelegramModeratorMenuStateId { get; set; }
-    public TelegramModeratorMenuState? TelegramModeratorMenuState { get; set; }
+    public TelegramModeratorState? TelegramModeratorMenuState { get; set; }
 }
