@@ -177,6 +177,26 @@ namespace DessertsMakery.Persistence.Migrations
             );
 
             migrationBuilder.CreateTable(
+                name: "TelegramModeratorStates",
+                columns: table => new
+                {
+                    InternalId = table
+                        .Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    MenuState = table.Column<string>(type: "TEXT", nullable: true),
+                    OperationState = table.Column<string>(type: "TEXT", nullable: true),
+                    ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TelegramModeratorStates", x => x.InternalId);
+                }
+            );
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -332,6 +352,33 @@ namespace DessertsMakery.Persistence.Migrations
                         principalTable: "Recipes",
                         principalColumn: "InternalId",
                         onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
+
+            migrationBuilder.CreateTable(
+                name: "TelegramModerators",
+                columns: table => new
+                {
+                    InternalId = table
+                        .Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Username = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    TelegramModeratorStateId = table.Column<long>(type: "INTEGER", nullable: true),
+                    ExternalId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    ModifiedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "DATE('now')"),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TelegramModerators", x => x.InternalId);
+                    table.ForeignKey(
+                        name: "FK_TelegramModerators_TelegramModeratorStates_TelegramModeratorStateId",
+                        column: x => x.TelegramModeratorStateId,
+                        principalTable: "TelegramModeratorStates",
+                        principalColumn: "InternalId"
                     );
                 }
             );
@@ -884,18 +931,18 @@ namespace DessertsMakery.Persistence.Migrations
                 {
                     {
                         1L,
-                        new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9924),
-                        new Guid("baf0dd1d-d24d-42a1-a112-e2bb55f6eeae"),
+                        new DateTime(2024, 3, 19, 8, 19, 28, 625, DateTimeKind.Utc).AddTicks(2241),
+                        new Guid("44e20708-937f-4b3a-9a30-9bd0e14314e0"),
                         false,
-                        new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9924),
+                        new DateTime(2024, 3, 19, 8, 19, 28, 625, DateTimeKind.Utc).AddTicks(2241),
                         "Quantity"
                     },
                     {
                         2L,
-                        new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9910),
-                        new Guid("0685a1f7-c185-4045-b158-3ee72128d2cb"),
+                        new DateTime(2024, 3, 19, 8, 19, 28, 625, DateTimeKind.Utc).AddTicks(2236),
+                        new Guid("59f56050-6ad6-4319-ab48-f754bd595bdc"),
                         false,
-                        new DateTime(2024, 3, 6, 11, 36, 17, 505, DateTimeKind.Utc).AddTicks(9910),
+                        new DateTime(2024, 3, 19, 8, 19, 28, 625, DateTimeKind.Utc).AddTicks(2236),
                         "Mass"
                     }
                 }
@@ -1336,6 +1383,27 @@ namespace DessertsMakery.Persistence.Migrations
                 column: "ExternalId",
                 unique: true
             );
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramModerators_ExternalId",
+                table: "TelegramModerators",
+                column: "ExternalId",
+                unique: true
+            );
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramModerators_TelegramModeratorStateId",
+                table: "TelegramModerators",
+                column: "TelegramModeratorStateId",
+                unique: true
+            );
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TelegramModeratorStates_ExternalId",
+                table: "TelegramModeratorStates",
+                column: "ExternalId",
+                unique: true
+            );
         }
 
         /// <inheritdoc />
@@ -1363,6 +1431,8 @@ namespace DessertsMakery.Persistence.Migrations
 
             migrationBuilder.DropTable(name: "RecipeIngredients");
 
+            migrationBuilder.DropTable(name: "TelegramModerators");
+
             migrationBuilder.DropTable(name: "DessertTemplates");
 
             migrationBuilder.DropTable(name: "OrderItemDetails");
@@ -1376,6 +1446,8 @@ namespace DessertsMakery.Persistence.Migrations
             migrationBuilder.DropTable(name: "RecipeDescriptionItemTypes");
 
             migrationBuilder.DropTable(name: "Recipes");
+
+            migrationBuilder.DropTable(name: "TelegramModeratorStates");
 
             migrationBuilder.DropTable(name: "DessertFamilyWeights");
 

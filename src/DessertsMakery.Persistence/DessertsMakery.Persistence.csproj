@@ -120,4 +120,8 @@
       <ProjectReference Include="..\DessertsMakery.Contracts\DessertsMakery.Contracts.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>
