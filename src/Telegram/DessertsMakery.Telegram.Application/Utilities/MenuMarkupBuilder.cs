@@ -5,12 +5,7 @@ namespace DessertsMakery.Telegram.Application.Utilities;
 
 internal sealed class MenuMarkupBuilder : IMenuMarkupBuilder
 {
-    private readonly IMenuRoot _menuRoot;
-
-    public MenuMarkupBuilder(IMenuRoot menuRoot)
-    {
-        _menuRoot = menuRoot;
-    }
+    private const int RowSize = 2;
 
     public IReplyMarkup Build(IMenuSection section)
     {
@@ -18,12 +13,12 @@ internal sealed class MenuMarkupBuilder : IMenuMarkupBuilder
         return new ReplyKeyboardMarkup(buttons) { ResizeKeyboard = true, IsPersistent = true };
     }
 
-    private static IEnumerable<KeyboardButton> GetButtons(IMenuSection current)
+    private static IEnumerable<KeyboardButton[]> GetButtons(IMenuSection current)
     {
-        var buttons = current.Children.Select(child => new KeyboardButton(child.Name));
+        var buttons = current.Children.Select(child => new KeyboardButton(child.Name)).Chunk(RowSize);
         if (current.Parent is not null)
         {
-            buttons = buttons.Append(MenuSectionNames.Common.Back);
+            buttons = buttons.Append(new KeyboardButton[] { MenuSectionNames.Common.Back });
         }
 
         return buttons;

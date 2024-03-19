@@ -1,8 +1,10 @@
 ﻿using CSharpFunctionalExtensions;
+using DessertsMakery.Common;
 using DessertsMakery.Persistence.Repositories.Telegram;
 using DessertsMakery.Telegram.Application.Menu;
 using DessertsMakery.Telegram.Application.Notifications.Handlers.Messages.Core;
 using DessertsMakery.Telegram.Application.Utilities;
+using DessertsMakery.Telegram.Application.Utilities.Menu;
 using Telegram.Bot;
 
 namespace DessertsMakery.Telegram.Application.Notifications.Handlers.Messages.Menu;
@@ -13,6 +15,7 @@ internal sealed class MenuSectionSelectedNotificationHandler : MessageTelegramNo
     private readonly ITelegramUserAccessor _telegramUserAccessor;
     private readonly IMenuRoot _menuRoot;
     private readonly IMenuMarkupBuilder _menuMarkupBuilder;
+    private readonly IMenuSectionSelectedMessageSender _menuSectionSelectedMessageSender;
 
     private string? _username;
     private Breadcrumbs? _breadcrumbs;
@@ -21,21 +24,26 @@ internal sealed class MenuSectionSelectedNotificationHandler : MessageTelegramNo
         IReadWriteTelegramRepository telegramRepository,
         ITelegramUserAccessor telegramUserAccessor,
         IMenuRoot menuRoot,
-        IMenuMarkupBuilder menuMarkupBuilder
+        IMenuMarkupBuilder menuMarkupBuilder,
+        IMenuSectionSelectedMessageSender menuSectionSelectedMessageSender
     )
     {
         _telegramRepository = telegramRepository;
         _telegramUserAccessor = telegramUserAccessor;
         _menuRoot = menuRoot;
         _menuMarkupBuilder = menuMarkupBuilder;
+        _menuSectionSelectedMessageSender = menuSectionSelectedMessageSender;
     }
 
     protected override async Task<bool> CanHandleAsync(CancellationToken cancellationToken)
     {
         _username = _telegramUserAccessor.TelegramUser.Map(x => x.Username).GetValueOrThrow("Cannot get username")!;
         var state = await _telegramRepository.GetMenuStateAsync(_username, cancellationToken);
-        _breadcrumbs = Breadcrumbs.TryFrom(_menuRoot, state).GetValueOrThrow($"Cannot parse {state} to breadcrumbs");
-        return _breadcrumbs.Current.TryFindChild(Message.Text!).HasValue;
+        return Breadcrumbs
+            .TryFrom(_menuRoot, state)
+            .Tap(breadcrumbs => _breadcrumbs = breadcrumbs)
+            .Map(breadcrumbs => breadcrumbs.Current.TryFindChild(Message.Text!).HasValue)
+            .GetValueOrDefault();
     }
 
     protected override async Task HandleAsync(CancellationToken cancellationToken)
@@ -51,5 +59,6 @@ internal sealed class MenuSectionSelectedNotificationHandler : MessageTelegramNo
             replyMarkup: markup,
             cancellationToken: cancellationToken
         );
+        await _menuSectionSelectedMessageSender.TrySendAsync(breadcrumbs, Chat, cancellationToken);
     }
 }
