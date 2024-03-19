@@ -111,7 +111,7 @@
         <DependentUpon>TelegramModerator.cs</DependentUpon>
       </Compile>
       <Compile Update="Models\Telegram\TelegramModeratorStateConfiguration.cs">
-        <DependentUpon>TelegramModeratorMenuState.cs</DependentUpon>
+        <DependentUpon>TelegramModeratorState.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 

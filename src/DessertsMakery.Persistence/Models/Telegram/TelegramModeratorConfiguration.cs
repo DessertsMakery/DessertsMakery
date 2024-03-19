@@ -8,6 +8,6 @@ internal sealed class TelegramModeratorConfiguration : BaseEntityTypeConfigurati
     {
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         builder.Property(x => x.Username).HasMaxLength(50).IsRequired();
-        builder.HasOne(x => x.TelegramModeratorMenuState).WithOne(x => x.TelegramModerator);
+        builder.HasOne(x => x.TelegramModeratorState).WithOne(x => x.TelegramModerator);
     }
 }
