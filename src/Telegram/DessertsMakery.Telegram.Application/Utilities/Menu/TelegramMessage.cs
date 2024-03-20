@@ -1,3 +1,5 @@
-﻿namespace DessertsMakery.Telegram.Application.Utilities.Menu;
+using Telegram.Bot.Types.ReplyMarkups;
 
-internal record TelegramMessage(string Text);
+namespace DessertsMakery.Telegram.Application.Utilities.Menu;
+
+internal record TelegramMessage(string Text, IReplyMarkup? Markup = null);

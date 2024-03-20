@@ -8,7 +8,7 @@ public sealed class Breadcrumbs
     private const char Separator = ':';
 
     private readonly List<IMenuSection> _sections = new();
-    public IReadOnlyCollection<IMenuSection> Sections => _sections;
+    public IReadOnlyList<IMenuSection> Sections => _sections;
 
     public IMenuSection Current => _sections.Last();
 
