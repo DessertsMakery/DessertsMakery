@@ -19,10 +19,23 @@ internal sealed class MenuSectionSelectedMessageSender : IMenuSectionSelectedMes
         _creators = creators;
     }
 
-    public Task TrySendAsync(Breadcrumbs breadcrumbs, ChatId chatId, CancellationToken token = default) =>
-        _creators
+    public Task TrySendAsync(Breadcrumbs breadcrumbs, ChatId chatId, CancellationToken token = default)
+    {
+        return _creators
             .SingleOrDefault(creator => creator.CanBeUsed(breadcrumbs))
             .AsMaybe()
             .Map(x => x.Create())
-            .Execute(x => _telegramBotClient.SendTextMessageAsync(chatId, x.Text, cancellationToken: token));
+            .Execute(SendMessageAsync);
+
+        Task<Message> SendMessageAsync(TelegramMessage message)
+        {
+            var (text, replyMarkup) = message;
+            return _telegramBotClient.SendTextMessageAsync(
+                chatId,
+                text,
+                replyMarkup: replyMarkup,
+                cancellationToken: token
+            );
+        }
+    }
 }
