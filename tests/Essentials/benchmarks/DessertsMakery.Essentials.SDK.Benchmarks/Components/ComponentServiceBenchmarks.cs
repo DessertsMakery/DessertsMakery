@@ -64,7 +64,7 @@ public class ComponentServiceBenchmarks
     }
 
     [Benchmark]
-    public Task<Component[]> TryGetBestMatchByNameAsync() =>
+    public static Task<Component[]> TryGetBestMatchByNameAsync() =>
         ComponentService.TryGetBestMatchByNameAsync(RandomComponentCorruptedName);
 
     private static string CorruptNameOf(Component component)

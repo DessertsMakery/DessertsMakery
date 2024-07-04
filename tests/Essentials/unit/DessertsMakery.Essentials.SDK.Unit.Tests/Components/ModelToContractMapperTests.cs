@@ -33,19 +33,6 @@ public class ModelToContractMapperTests
         contract.Should().BeEquivalentTo(ComponentMapping(model));
     }
 
-    [Fact]
-    public void Map_WhenModelsAreValid_ReturnsContracts()
-    {
-        // Arrange
-        var models = new Fixture().Customize(new SmartEnumCustomization()).CreateMany<Component>().ToArray();
-
-        // Act
-        var contracts = _mapper.Map(models);
-
-        // Assert
-        contracts.Should().BeEquivalentTo(models.Select(ComponentMapping));
-    }
-
     private static object ComponentMapping(Component model) =>
         new
         {

@@ -24,8 +24,6 @@ internal sealed class ModelToContractMapper : IModelToContractMapper
         );
     }
 
-    public IEnumerable<ComponentDto> Map(IEnumerable<Component> components) => components.Select(Map)!;
-
     public Component Map(CreateComponentDto createComponentDto)
     {
         var (name, measuring, componentType, parentId, proportion) = createComponentDto;

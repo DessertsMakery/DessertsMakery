@@ -1,6 +1,6 @@
 ﻿namespace DessertsMakery.Common.Utility.Algorithms;
 
-public sealed class DamerauLevenshteinAlgorithm
+public static class DamerauLevenshteinAlgorithm
 {
     /// <summary>
     /// Computes the Damerau-Levenshtein Distance between two strings, represented as arrays of

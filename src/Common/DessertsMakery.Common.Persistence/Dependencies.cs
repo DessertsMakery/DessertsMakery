@@ -56,6 +56,7 @@ public static class Dependencies
             var mongoCollectionType = typeof(IMongoCollection<>).MakeGenericType(entityType);
             services.TryAddScoped(mongoCollectionType, provider => provider.MongoCollectionFactory(entityType));
         }
+        return;
 
         bool MongoEntityIsPublicNonAbstractClass(TypeInfo type) =>
             type is { IsClass: true, IsAbstract: false, IsPublic: true }

@@ -45,6 +45,7 @@ public static class BsonSerializerExtensions
         {
             services.TryAddSingleton(marker, serializerType);
         }
+        return;
 
         bool BsonSerializerIsNonAbstractNonGenericClass(TypeInfo type) =>
             type is { IsClass: true, IsAbstract: false, IsGenericType: false } && marker.IsAssignableFrom(type);

@@ -5,7 +5,7 @@ namespace DessertsMakery.Common.Tests.Infrastructure.Sdk;
 
 public static class Dependencies
 {
-    public static IServiceCollection AddSdkTestInfrastructure(
+    public static void AddSdkTestInfrastructure(
         this IServiceCollection services,
         Action<SdkBuilderConfiguration> action
     )
@@ -14,6 +14,5 @@ public static class Dependencies
         action(configuration);
         services.TryAddSingleton(configuration);
         services.TryAddSingleton<SdkBuilder>();
-        return services;
     }
 }

@@ -6,6 +6,5 @@ namespace DessertsMakery.Essentials.SDK.Components;
 internal interface IModelToContractMapper
 {
     ComponentDto? Map(Component? component);
-    IEnumerable<ComponentDto> Map(IEnumerable<Component> components);
     Component Map(CreateComponentDto createComponentDto);
 }

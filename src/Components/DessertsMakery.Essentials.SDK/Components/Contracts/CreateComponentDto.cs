@@ -1,6 +1,6 @@
 ﻿namespace DessertsMakery.Essentials.SDK.Components.Contracts;
 
-public sealed record class CreateComponentDto(
+public sealed record CreateComponentDto(
     string Name,
     string Measuring,
     string ComponentType,

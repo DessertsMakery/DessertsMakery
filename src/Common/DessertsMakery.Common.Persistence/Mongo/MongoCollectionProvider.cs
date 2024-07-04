@@ -173,7 +173,7 @@ internal sealed class MongoCollectionProvider(IMongoDatabase database, ICollecti
         }
 
         [DoesNotReturn]
-        private MethodInfo ThrowNotSupportedMethod(IInvocation invocation) =>
+        private void ThrowNotSupportedMethod(IInvocation invocation) =>
             throw new NotSupportedException(
                 $"Method `{invocation.Method.Name}` is not implemented in {_mongoCollectionInterface}."
             );
