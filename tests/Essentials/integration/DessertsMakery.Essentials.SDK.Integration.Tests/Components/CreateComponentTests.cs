@@ -1,18 +1,18 @@
-﻿using DessertsMakery.Essentials.SDK.Components;
+﻿using DessertsMakery.Common.Tests.Infrastructure.Sdk;
+using DessertsMakery.Essentials.SDK.Components;
 using DessertsMakery.Essentials.SDK.Components.Contracts;
 using FluentAssertions;
 using FluentAssertions.Execution;
 
 namespace DessertsMakery.Essentials.SDK.Integration.Tests.Components;
 
-[Collection("SDK Collection")]
-public sealed class CreateComponentTests(EssentialsSdkFixture sdkFixture)
+public sealed class CreateComponentTests(SdkBuilder sdkBuilder)
 {
     [Fact]
     public async Task CreateAsync_Always_ShouldCreateRecordInMongo()
     {
         // Arrange
-        var service = sdkFixture.Resolve<IComponentService>();
+        var service = await sdkBuilder.ResolveAsync<IComponentService>();
         var createComponentDto = new CreateComponentDto("Milk", "Mass", "Consumable");
 
         // Act
@@ -40,7 +40,7 @@ public sealed class CreateComponentTests(EssentialsSdkFixture sdkFixture)
     public async Task GetByNameAsync_WhenFewEntries_ShouldReturnThem()
     {
         // Arrange
-        var service = sdkFixture.Resolve<IComponentService>();
+        var service = await sdkBuilder.ResolveAsync<IComponentService>();
         await service.CreateAsync(new CreateComponentDto("Milk", "Mass", "Consumable"));
         await service.CreateAsync(new CreateComponentDto("Jam", "Mass", "Consumable"));
         await service.CreateAsync(new CreateComponentDto("Ham", "Mass", "Consumable"));

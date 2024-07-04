@@ -12,7 +12,9 @@ namespace DessertsMakery.Common.Persistence;
 
 public static class Dependencies
 {
-    public static IServiceCollection? AddPersistence(
+    public const string DessertsMakeryPrefix = "DessertsMakery";
+
+    public static IServiceCollection AddPersistence(
         this IServiceCollection services,
         Assembly assembly,
         IConfiguration configuration
@@ -22,6 +24,7 @@ public static class Dependencies
         services.TryAddSingleton<IMongoClient>(MongoClientFactory);
         services.TryAddScoped(MongoDatabaseFactory);
         services.TryAddTransient<ICollectionNamingStrategy, CollectionNamingStrategy>();
+        services.TryAddTransient<IMongoCollectionProvider, MongoCollectionProvider>();
         services.TryAddMongoCollections(assembly);
         return services;
     }
@@ -43,7 +46,7 @@ public static class Dependencies
     private static void TryAddMongoCollections(this IServiceCollection services, Assembly assembly)
     {
         var marker = typeof(MongoEntity);
-        var assemblies = AssemblyHelper.LoadAssemblies(assembly);
+        var assemblies = AssemblyHelper.LoadAssemblies(assembly, DessertsMakeryPrefix);
         var entityTypes = assemblies
             .SelectMany(x => x.DefinedTypes)
             .Where(MongoEntityIsPublicNonAbstractClass)
@@ -60,17 +63,6 @@ public static class Dependencies
             && type != marker;
     }
 
-    private static object MongoCollectionFactory(this IServiceProvider provider, Type entityType)
-    {
-        var collectionNamingStrategy = provider.GetRequiredService<ICollectionNamingStrategy>();
-        var collectionName = collectionNamingStrategy.GetName(entityType);
-
-        var mongoDatabase = provider.GetRequiredService<IMongoDatabase>();
-        var openGenericMethod = typeof(IMongoDatabase).GetMethod(nameof(IMongoDatabase.GetCollection))!;
-        var getCollectionMethod = openGenericMethod.MakeGenericMethod(entityType);
-
-        var arguments = new object?[] { collectionName, null };
-        var collection = getCollectionMethod.Invoke(mongoDatabase, arguments)!;
-        return collection;
-    }
+    private static object MongoCollectionFactory(this IServiceProvider provider, Type entityType) =>
+        provider.GetRequiredService<IMongoCollectionProvider>().Create(entityType);
 }
