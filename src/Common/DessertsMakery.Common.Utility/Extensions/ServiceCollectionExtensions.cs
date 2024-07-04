@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
     public const string Mapper = nameof(Mapper);
 
     public static IServiceCollection AddMappers(this IServiceCollection services, Assembly assembly) =>
-        services.AddServices(new[] { assembly });
+        services.AddMappers(new[] { assembly });
 
     public static IServiceCollection AddMappers(this IServiceCollection services, IEnumerable<Assembly> assemblies) =>
         services.AddDependencies(assemblies, Mapper);

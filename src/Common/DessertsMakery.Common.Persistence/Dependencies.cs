@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using DessertsMakery.Common.Persistence.Mongo;
 using DessertsMakery.Common.Utility.Extensions;
+using DessertsMakery.Common.Utility.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -11,15 +12,20 @@ namespace DessertsMakery.Common.Persistence;
 
 public static class Dependencies
 {
-    private static readonly Assembly ThisAssembly = typeof(Dependencies).Assembly;
+    public const string DessertsMakeryPrefix = "DessertsMakery";
 
-    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPersistence(
+        this IServiceCollection services,
+        Assembly assembly,
+        IConfiguration configuration
+    )
     {
         services.AddConfiguration<MongoSettings>(configuration);
         services.TryAddSingleton<IMongoClient>(MongoClientFactory);
         services.TryAddScoped(MongoDatabaseFactory);
         services.TryAddTransient<ICollectionNamingStrategy, CollectionNamingStrategy>();
-        services.TryAddMongoCollections();
+        services.TryAddTransient<IMongoCollectionProvider, MongoCollectionProvider>();
+        services.TryAddMongoCollections(assembly);
         return services;
     }
 
@@ -37,15 +43,20 @@ public static class Dependencies
         return mongoClient.GetDatabase(internalSettings.DatabaseName);
     }
 
-    private static void TryAddMongoCollections(this IServiceCollection services)
+    private static void TryAddMongoCollections(this IServiceCollection services, Assembly assembly)
     {
         var marker = typeof(MongoEntity);
-        var entityTypes = ThisAssembly.DefinedTypes.Where(MongoEntityIsPublicNonAbstractClass).ToArray();
+        var assemblies = AssemblyHelper.LoadAssemblies(assembly, DessertsMakeryPrefix);
+        var entityTypes = assemblies
+            .SelectMany(x => x.DefinedTypes)
+            .Where(MongoEntityIsPublicNonAbstractClass)
+            .ToArray();
         foreach (var entityType in entityTypes)
         {
             var mongoCollectionType = typeof(IMongoCollection<>).MakeGenericType(entityType);
             services.TryAddScoped(mongoCollectionType, provider => provider.MongoCollectionFactory(entityType));
         }
+        return;
 
         bool MongoEntityIsPublicNonAbstractClass(TypeInfo type) =>
             type is { IsClass: true, IsAbstract: false, IsPublic: true }
@@ -53,17 +64,6 @@ public static class Dependencies
             && type != marker;
     }
 
-    private static object MongoCollectionFactory(this IServiceProvider provider, Type entityType)
-    {
-        var collectionNamingStrategy = provider.GetRequiredService<ICollectionNamingStrategy>();
-        var collectionName = collectionNamingStrategy.GetName(entityType);
-
-        var mongoDatabase = provider.GetRequiredService<IMongoDatabase>();
-        var openGenericMethod = typeof(IMongoDatabase).GetMethod(nameof(IMongoDatabase.GetCollection))!;
-        var getCollectionMethod = openGenericMethod.MakeGenericMethod(entityType);
-
-        var arguments = new object?[] { collectionName, null };
-        var collection = getCollectionMethod.Invoke(mongoDatabase, arguments)!;
-        return collection;
-    }
+    private static object MongoCollectionFactory(this IServiceProvider provider, Type entityType) =>
+        provider.GetRequiredService<IMongoCollectionProvider>().Create(entityType);
 }

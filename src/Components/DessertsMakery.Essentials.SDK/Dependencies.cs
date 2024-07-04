@@ -10,11 +10,10 @@ public static class Dependencies
 {
     private static readonly Assembly ThisAssembly = typeof(Dependencies).Assembly;
 
-    public static IServiceCollection AddEssentialsSdk(this IServiceCollection services, IConfiguration configuration)
+    public static void AddEssentialsSdk(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddPersistence(configuration);
+        services.AddPersistence(ThisAssembly, configuration);
         services.AddServices(ThisAssembly);
         services.AddMappers(ThisAssembly);
-        return services;
     }
 }

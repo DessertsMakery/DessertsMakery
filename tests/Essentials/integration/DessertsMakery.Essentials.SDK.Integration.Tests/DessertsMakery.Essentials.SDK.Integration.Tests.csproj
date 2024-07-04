@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <UserSecretsId>05017f78-84f3-4430-b9f1-b79d96161dca</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="coverlet.collector"/>
+        <PackageReference Include="FluentAssertions"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="Testcontainers"/>
+        <PackageReference Include="Testcontainers.MongoDb"/>
+        <PackageReference Include="xunit"/>
+        <PackageReference Include="Xunit.DependencyInjection"/>
+        <PackageReference Include="xunit.runner.visualstudio"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\src\Components\DessertsMakery.Essentials.SDK\DessertsMakery.Essentials.SDK.csproj"/>
+        <ProjectReference Include="..\..\..\Common\DessertsMakery.Common.Tests.Infrastructure\DessertsMakery.Common.Tests.Infrastructure.csproj"/>
+    </ItemGroup>
+
+</Project>

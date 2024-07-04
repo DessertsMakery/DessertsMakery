@@ -44,7 +44,7 @@ internal sealed class SmartEnumSerializerProvider : BsonSerializationProviderBas
                 continue;
             }
 
-            arguments = Array.Empty<Type>();
+            arguments = [];
             return false;
         }
     }
