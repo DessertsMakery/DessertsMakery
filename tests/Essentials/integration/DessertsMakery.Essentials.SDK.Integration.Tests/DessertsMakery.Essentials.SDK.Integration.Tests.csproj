@@ -19,7 +19,7 @@
         <PackageReference Include="Testcontainers"/>
         <PackageReference Include="Testcontainers.MongoDb"/>
         <PackageReference Include="xunit"/>
-        <PackageReference Include="Xunit.DependencyInjection" />
+        <PackageReference Include="Xunit.DependencyInjection"/>
         <PackageReference Include="xunit.runner.visualstudio"/>
     </ItemGroup>
 
@@ -29,7 +29,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\src\Components\DessertsMakery.Essentials.SDK\DessertsMakery.Essentials.SDK.csproj"/>
-        <ProjectReference Include="..\..\..\Common\DessertsMakery.Common.Tests.Infrastructure\DessertsMakery.Common.Tests.Infrastructure.csproj" />
+        <ProjectReference Include="..\..\..\Common\DessertsMakery.Common.Tests.Infrastructure\DessertsMakery.Common.Tests.Infrastructure.csproj"/>
     </ItemGroup>
 
 </Project>

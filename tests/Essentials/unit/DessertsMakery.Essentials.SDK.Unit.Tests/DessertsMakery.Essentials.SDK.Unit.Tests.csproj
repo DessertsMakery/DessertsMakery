@@ -9,13 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Ardalis.SmartEnum.AutoFixture" Version="8.0.0"/>
-        <PackageReference Include="AutoFixture" Version="4.18.1"/>
-        <PackageReference Include="coverlet.collector" Version="6.0.0"/>
-        <PackageReference Include="FluentAssertions" Version="6.12.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
-        <PackageReference Include="xunit" Version="2.5.3"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
+        <PackageReference Include="Ardalis.SmartEnum.AutoFixture"/>
+        <PackageReference Include="coverlet.collector"/>
+        <PackageReference Include="FluentAssertions"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="xunit"/>
+        <PackageReference Include="xunit.runner.visualstudio"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -24,6 +23,10 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\src\Components\DessertsMakery.Essentials.SDK\DessertsMakery.Essentials.SDK.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageVersion Update="AutoFixture" Version="4.18.1" />
     </ItemGroup>
 
 </Project>

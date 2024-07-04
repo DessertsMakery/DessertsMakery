@@ -3,7 +3,9 @@
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
+        <PackageVersion Include="Ardalis.SmartEnum.AutoFixture" Version="8.0.0"/>
+        <PackageVersion Include="AutoFixture" Version="4.18.1"/>
+        <PackageVersion Include="BenchmarkDotNet" Version="0.13.12"/>
         <PackageVersion Include="coverlet.collector" Version="6.0.0"/>
         <PackageVersion Include="FluentAssertions" Version="6.12.0"/>
         <PackageVersion Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
@@ -14,9 +16,8 @@
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
         <PackageVersion Include="Testcontainers" Version="3.9.0"/>
         <PackageVersion Include="Testcontainers.MongoDb" Version="3.9.0"/>
-        <PackageReference Include="BenchmarkDotNet" Version="0.13.12"/>
-        <PackageReference Include="Moq" Version="4.20.70"/>
-        <PackageReference Include="Soenneker.Utils.AutoBogus" Version="2.1.234"/>
+        <PackageVersion Include="Moq" Version="4.20.70"/>
+        <PackageVersion Include="Soenneker.Utils.AutoBogus" Version="2.1.234"/>
         <PackageVersion Include="xunit" Version="2.5.3"/>
         <PackageVersion Include="Xunit.DependencyInjection" Version="9.3.0"/>
         <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.3"/>

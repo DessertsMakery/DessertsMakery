@@ -8,15 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
-      <PackageReference Include="Moq" Version="4.20.70" />
-      <PackageReference Include="Soenneker.Utils.AutoBogus" Version="2.1.234" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\..\src\Components\DessertsMakery.Essentials.SDK\DessertsMakery.Essentials.SDK.csproj" />
+        <PackageReference Include="BenchmarkDotNet"/>
+        <PackageReference Include="Moq"/>
+        <PackageReference Include="Soenneker.Utils.AutoBogus"/>
     </ItemGroup>
 
-    
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\src\Components\DessertsMakery.Essentials.SDK\DessertsMakery.Essentials.SDK.csproj"/>
+    </ItemGroup>
+
 
 </Project>
