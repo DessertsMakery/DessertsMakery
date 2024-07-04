@@ -52,6 +52,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{928259
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DessertsMakery.Common.Tests.Infrastructure", "tests\Common\DessertsMakery.Common.Tests.Infrastructure\DessertsMakery.Common.Tests.Infrastructure.csproj", "{D58D924A-9D05-43DD-8001-E9D756E58697}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{75427206-E39B-4140-A5C2-193DE879DFC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{092F70FE-69DF-4339-BBD0-4BC603E00EC9}"
+	ProjectSection(SolutionItems) = preProject
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{A3299591-F313-4754-A6E3-236DC9393278}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +88,7 @@ Global
 		{8D1DD481-3CAC-4901-BBEF-1DB78D20D945} = {81B96631-13F6-4AE9-A9EA-67442FF248B8}
 		{928259B0-CD64-4DCF-BA66-ABA2EAE93B2B} = {B73736D5-AD8F-4B8C-BC80-7E8053E7022B}
 		{D58D924A-9D05-43DD-8001-E9D756E58697} = {928259B0-CD64-4DCF-BA66-ABA2EAE93B2B}
+		{A3299591-F313-4754-A6E3-236DC9393278} = {75427206-E39B-4140-A5C2-193DE879DFC3}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4E811246-E99E-4720-B133-8AFA66EF5794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
