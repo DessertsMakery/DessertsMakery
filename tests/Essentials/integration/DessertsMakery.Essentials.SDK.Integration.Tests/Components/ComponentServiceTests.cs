@@ -6,17 +6,20 @@ using FluentAssertions.Execution;
 
 namespace DessertsMakery.Essentials.SDK.Integration.Tests.Components;
 
-public sealed class CreateComponentTests(SdkBuilder sdkBuilder)
+public sealed class ComponentServiceTests(SdkBuilder sdkBuilder) : IAsyncLifetime
 {
+    private IComponentService _sut = null!;
+
+    public async Task InitializeAsync() => _sut = await sdkBuilder.ResolveAsync<IComponentService>();
+
     [Fact]
     public async Task CreateAsync_Always_ShouldCreateRecordInMongo()
     {
         // Arrange
-        var service = await sdkBuilder.ResolveAsync<IComponentService>();
         var createComponentDto = new CreateComponentDto("Milk", "Mass", "Consumable");
 
         // Act
-        var actual = await service.CreateAsync(createComponentDto);
+        var actual = await _sut.CreateAsync(createComponentDto);
 
         // Assert
         using (new AssertionScope())
@@ -40,13 +43,12 @@ public sealed class CreateComponentTests(SdkBuilder sdkBuilder)
     public async Task GetByNameAsync_WhenFewEntries_ShouldReturnThem()
     {
         // Arrange
-        var service = await sdkBuilder.ResolveAsync<IComponentService>();
-        await service.CreateAsync(new CreateComponentDto("Milk", "Mass", "Consumable"));
-        await service.CreateAsync(new CreateComponentDto("Jam", "Mass", "Consumable"));
-        await service.CreateAsync(new CreateComponentDto("Ham", "Mass", "Consumable"));
+        await _sut.CreateAsync(new CreateComponentDto("Milk", "Mass", "Consumable"));
+        await _sut.CreateAsync(new CreateComponentDto("Jam", "Mass", "Consumable"));
+        await _sut.CreateAsync(new CreateComponentDto("Ham", "Mass", "Consumable"));
 
         // Act
-        var actual = await service.TryGetBestMatchByNameAsync("Sam");
+        var actual = await _sut.TryGetBestMatchByNameAsync("Sam");
 
         // Assert
         using (new AssertionScope())
@@ -55,4 +57,6 @@ public sealed class CreateComponentTests(SdkBuilder sdkBuilder)
             actual.Select(x => x.Name).Should().Contain(["Jam", "Ham"]);
         }
     }
+
+    public Task DisposeAsync() => Task.CompletedTask;
 }
